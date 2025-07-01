@@ -63,7 +63,7 @@ const Dash_Sidebar = ({ isOpen, onClose }) => {
 				transition={{ duration: 0.3, ease: "easeInOut" }}
 			>
 				{/* Sidebar Header/Logo */}
-				<div className="p-6 flex items-center justify-between border-b border-white">
+				<div className="p-6 flex items-center justify-between ">
 					{" "}
 					{/* Removed lg:justify-center */}
 					<h2 className="text-2xl font-bold">Fintech App</h2>
@@ -96,7 +96,7 @@ const Dash_Sidebar = ({ isOpen, onClose }) => {
 				</nav>
 
 				{/* Logout Button */}
-				<div className="p-6 border-t border-white">
+				<div className="p-6 ">
 					<Motion.button
 						className="flex items-center space-x-3 p-3 rounded-lg hover:bg-white hover:text-gray-900 transition-colors w-full text-lg font-medium"
 						whileHover={{ x: 5 }}
