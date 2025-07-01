@@ -23,7 +23,7 @@ const ContactSection = () => {
 				className="bg-gray-800 py-16 md:py-24 lg:py-32 px-6 md:px-10 lg:px-20"
 			>
 				<div className="container mx-auto">
-					<h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 text-center">
+					<h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 text-center mt-7">
 						Contact Us
 					</h2>
 					<Motion.div

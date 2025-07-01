@@ -12,6 +12,10 @@ const LoginPage = () => {
 	const [error, setError] = useState(null);
 	const [user, setUser] = useState(null);
 
+	const BASE_URL =
+		import.meta.env.VITE_BASE_URL ||
+		"https://backend-heavy-task.onrender.com/api_url/users/task";
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
@@ -19,9 +23,14 @@ const LoginPage = () => {
 
 		try {
 			const response = await axios.post(
-				"http://localhost:7075/api_url/users/task/login",
+				`${BASE_URL}/login`,
 				{ name },
 				{ headers: { "Content-Type": "application/json" } }
+			);
+			localStorage.setItem("departmentToken", response.data.token);
+			localStorage.setItem(
+				"departmentUserId",
+				response?.data?.data?.createDepartment?._id
 			);
 			setUser(response.data);
 			// Wait 2 seconds before navigating to delay and see that account was created with the success message

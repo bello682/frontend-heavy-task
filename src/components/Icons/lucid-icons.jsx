@@ -17,4 +17,5 @@ export {
 	LogOut,
 	X,
 	Menu,
+	Loader2,
 } from "lucide-react";

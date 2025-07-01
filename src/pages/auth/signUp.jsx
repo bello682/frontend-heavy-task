@@ -5,6 +5,9 @@ import { motion as Motion } from "framer-motion";
 import { Home } from "lucide-react";
 import "../../../src/App.css";
 
+const BASE_URL =
+	import.meta.env.VITE_BASE_URL ||
+	"https://backend-heavy-task.onrender.com/api_url/users/task";
 const SignUp = () => {
 	const navigate = useNavigate();
 	const [name, setName] = useState("");
@@ -19,7 +22,7 @@ const SignUp = () => {
 
 		try {
 			const response = await axios.post(
-				"http://localhost:7075/api_url/users/task/register",
+				`${BASE_URL}/register`,
 				{ name },
 				{ headers: { "Content-Type": "application/json" } }
 			);

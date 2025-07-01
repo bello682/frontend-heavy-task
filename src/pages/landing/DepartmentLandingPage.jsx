@@ -12,8 +12,6 @@ import NewsSection from "./web/newsSectiobn";
 const DepartmentLandingPage = () => {
 	return (
 		<div className="bg-gray-900 text-white">
-			{/* Navbar */}
-			{/* <NavBarSection /> */}
 			{/* Hero Section */}
 			<Herosection />
 			{/* About Us Section */}
@@ -28,8 +26,6 @@ const DepartmentLandingPage = () => {
 			<NewsSection />
 			{/* Contact Section */}
 			<ContactSection />
-			{/* Footer */}
-			{/* <FooterSection /> */}
 		</div>
 	);
 };

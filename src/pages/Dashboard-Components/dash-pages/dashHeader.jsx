@@ -2,15 +2,20 @@ import React from "react";
 import { motion as Motion } from "framer-motion";
 import { Bell, User, Menu } from "../../../components/Icons/lucid-icons"; // Centralized icon import
 import { getGreeting } from "../../../components/timeGreetings";
+import { useUserData } from "./../../../components/api/userDatasApi";
+import { Loader2 } from "../../../components/Icons/lucid-icons";
 
 // --- Dash_Header Component ---
 // NEW: Receive toggleSidebar prop
-const Dash_Header = ({
-	userName,
-	notifications,
-	itemVariants,
-	toggleSidebar,
-}) => {
+const Dash_Header = ({ notifications, itemVariants, toggleSidebar }) => {
+	const { user, loading, error } = useUserData();
+
+	const firstName = user?.name.split(" ")[0];
+
+	if (error) {
+		console.log(error.message);
+	}
+
 	return (
 		<Motion.header
 			className="flex items-center justify-between py-4 mb-8"
@@ -33,7 +38,9 @@ const Dash_Header = ({
 				</div>
 				<div>
 					<p className="text-sm text-gray-500">{getGreeting()},</p>
-					<h1 className="text-2xl sm:text-3xl font-bold">{userName}!</h1>
+					<h1 className="text-2xl sm:text-3xl font-bold flex">
+						{loading ? <Loader2 size={30} /> : firstName}!
+					</h1>
 				</div>
 			</div>
 			<div className="relative">

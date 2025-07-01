@@ -1,6 +1,8 @@
 import React from "react";
 import { motion as Motion } from "framer-motion";
 import { Eye, EyeOff } from "../../../components/Icons/lucid-icons"; // Centralized icon import
+import { useUserData } from "../../../components/api/userDatasApi";
+import Loader from "../../../components/LOADER/loaderAnimation";
 
 // --- Data_Balance_Card Component ---
 const Data_Balance_Card = ({
@@ -9,6 +11,14 @@ const Data_Balance_Card = ({
 	setShowBalance,
 	itemVariants,
 }) => {
+	const { user, loading, error } = useUserData();
+
+	if (user) {
+		console.log(user);
+	} else if (error) {
+		console.log(error);
+	}
+
 	return (
 		<Motion.section
 			className=" bg-gray-900 text-white p-6 sm:p-8 rounded-xl shadow-lg mb-8 relative overflow-hidden"
@@ -40,24 +50,39 @@ const Data_Balance_Card = ({
 					/>
 				</svg>
 			</div>
-			<div className="relative z-10 flex items-center justify-between mb-4">
-				<h2 className="text-lg sm:text-xl font-semibold">Current Balance</h2>
-				<Motion.button
-					onClick={() => setShowBalance(!showBalance)}
-					className="p-2 rounded-full hover:bg-white hover:bg-opacity-20 transition-colors"
-					whileTap={{ scale: 0.95 }}
-				>
-					{showBalance ? <EyeOff size={24} /> : <Eye size={24} />}
-				</Motion.button>
-			</div>
-			<p className="text-4xl sm:text-5xl font-extrabold mb-6">
-				{showBalance
-					? `$${currentBalance.toLocaleString("en-US", {
-							minimumFractionDigits: 2,
-							maximumFractionDigits: 2,
-					  })}`
-					: "••••••••"}
-			</p>
+			{loading ? (
+				<div className="my-12">
+					<Loader
+						type="circle"
+						size="large"
+						color="text-white"
+						loadingText="Please wait..."
+					/>
+				</div>
+			) : (
+				<>
+					<div className="relative z-10 flex items-center justify-between mb-4">
+						<h2 className="text-lg sm:text-xl font-semibold">
+							Current Balance
+						</h2>
+						<Motion.button
+							onClick={() => setShowBalance(!showBalance)}
+							className="p-2 rounded-full hover:bg-white hover:bg-opacity-20 transition-colors"
+							whileTap={{ scale: 0.95 }}
+						>
+							{showBalance ? <EyeOff size={24} /> : <Eye size={24} />}
+						</Motion.button>
+					</div>
+					<p className="text-4xl sm:text-5xl font-extrabold mb-6">
+						{showBalance
+							? `$${currentBalance.toLocaleString("en-US", {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+							  })}`
+							: "••••••••"}
+					</p>
+				</>
+			)}
 			<Motion.button
 				className="w-full bg-white text-gray-900 py-3 rounded-lg font-semibold shadow-md hover:bg-gray-100 transition-colors"
 				whileHover={{ scale: 1.02 }}

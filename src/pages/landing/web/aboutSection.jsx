@@ -28,7 +28,7 @@ const AboutSection = () => {
 						className="grid md:grid-cols-2 gap-12 items-center"
 					>
 						<div>
-							<h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+							<h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 mt-6">
 								About Us
 							</h2>
 							<p className="text-gray-300 text-lg md:text-xl mb-6">

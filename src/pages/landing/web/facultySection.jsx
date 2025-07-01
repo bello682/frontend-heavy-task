@@ -48,9 +48,9 @@ const FacultySection = () => {
 		<div>
 			<section
 				id="faculty"
-				className="py-16 md:py-24 lg:py-32 px-6 md:px-10 lg:px-20"
+				className="py-16 md:py-24 lg:py-32 px-6 md:px-10 lg:px-20 h-screen"
 			>
-				<div className="container mx-auto">
+				<div className="container mx-auto mt-5">
 					<h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 text-center">
 						Our Faculty
 					</h2>

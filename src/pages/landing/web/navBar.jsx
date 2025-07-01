@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { motion as Motion } from "framer-motion";
 import { Home, Menu, X } from "lucide-react";
 import "../../../../src/App.css";
+import { useLocation } from "react-router-dom";
 
 const NavBarSection = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const location = useLocation();
+	const isActive = (path) => location.pathname === path;
 
 	return (
 		<div>
@@ -30,33 +33,63 @@ const NavBarSection = () => {
 
 					{/* Desktop Menu (only on large screens) */}
 					<div className="hidden lg:flex gap-6">
-						<a href="#about" className="hover:text-blue-300 transition-colors">
+						<a
+							href="/about"
+							className={` transition-colors ${
+								isActive("/about")
+									? "text_gradient font-bold"
+									: "hover:text-blue-300"
+							}`}
+						>
 							About Us
 						</a>
 						<a
-							href="#programs"
-							className="hover:text-blue-300 transition-colors"
+							href="/programs"
+							className={` transition-colors ${
+								isActive("/programs")
+									? "text_gradient font-bold"
+									: "hover:text-blue-300"
+							}`}
 						>
 							Programs
 						</a>
 						<a
-							href="#faculty"
-							className="hover:text-blue-300 transition-colors"
+							href="/faculty"
+							className={` transition-colors ${
+								isActive("/faculty")
+									? "text_gradient font-bold"
+									: "hover:text-blue-300"
+							}`}
 						>
 							Faculty
 						</a>
 						<a
-							href="#research"
-							className="hover:text-blue-300 transition-colors"
+							href="/research"
+							className={` transition-colors ${
+								isActive("/research")
+									? "text_gradient font-bold"
+									: "hover:text-blue-300"
+							}`}
 						>
 							Research
 						</a>
-						<a href="#news" className="hover:text-blue-300 transition-colors">
+						<a
+							href="/news"
+							className={` transition-colors ${
+								isActive("/news")
+									? "text_gradient font-bold"
+									: "hover:text-blue-300"
+							}`}
+						>
 							News
 						</a>
 						<a
-							href="#contact"
-							className="hover:text-blue-300 transition-colors"
+							href="/contact"
+							className={` transition-colors ${
+								isActive("/contact")
+									? "text_gradient font-bold"
+									: "hover:text-blue-300"
+							}`}
 						>
 							Contact
 						</a>
@@ -78,44 +111,68 @@ const NavBarSection = () => {
 				{isOpen && (
 					<div className="fixed top-20 inset-0 bg-gray-900 bg-opacity-95 z-50 flex flex-col justify-center items-center space-y-8 text-xl lg:hidden">
 						<a
-							href="#about"
+							href="/about"
 							onClick={() => setIsOpen(false)}
-							className="hover:text-blue-300"
+							className={` transition-colors ${
+								isActive("/about")
+									? "text_gradient font-bold"
+									: "hover:text-blue-300"
+							}`}
 						>
 							About Us
 						</a>
 						<a
-							href="#programs"
+							href="/programs"
 							onClick={() => setIsOpen(false)}
-							className="hover:text-blue-300"
+							className={` transition-colors ${
+								isActive("/programs")
+									? "text_gradient font-bold"
+									: "hover:text-blue-300"
+							}`}
 						>
 							Programs
 						</a>
 						<a
-							href="#faculty"
+							href="/faculty"
 							onClick={() => setIsOpen(false)}
-							className="hover:text-blue-300"
+							className={` transition-colors ${
+								isActive("/faculty")
+									? "text_gradient font-bold"
+									: "hover:text-blue-300"
+							}`}
 						>
 							Faculty
 						</a>
 						<a
-							href="#research"
+							href="/research"
 							onClick={() => setIsOpen(false)}
-							className="hover:text-blue-300"
+							className={` transition-colors ${
+								isActive("/research")
+									? "text_gradient font-bold"
+									: "hover:text-blue-300"
+							}`}
 						>
 							Research
 						</a>
 						<a
-							href="#news"
+							href="/news"
 							onClick={() => setIsOpen(false)}
-							className="hover:text-blue-300"
+							className={` transition-colors ${
+								isActive("/news")
+									? "text_gradient font-bold"
+									: "hover:text-blue-300"
+							}`}
 						>
 							News
 						</a>
 						<a
-							href="#contact"
+							href="/contact"
 							onClick={() => setIsOpen(false)}
-							className="hover:text-blue-300"
+							className={` transition-colors ${
+								isActive("/contact")
+									? "text_gradient font-bold"
+									: "hover:text-blue-300"
+							}`}
 						>
 							Contact
 						</a>
