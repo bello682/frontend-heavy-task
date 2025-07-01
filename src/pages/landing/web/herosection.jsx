@@ -2,6 +2,7 @@ import React from "react";
 import { motion as Motion } from "framer-motion";
 import { Button } from "../../../components/ui/button";
 import { Link } from "react-router-dom";
+import "../../../../src/App.css";
 
 const Herosection = () => {
 	return (
@@ -12,7 +13,7 @@ const Herosection = () => {
 						initial={{ opacity: 0, y: -20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.8, ease: "easeInOut" }}
-						className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400"
+						className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-clip-text text_gradient bg_clip_text"
 					>
 						Welcome to the Department of Innovation
 					</Motion.h2>
@@ -33,7 +34,7 @@ const Herosection = () => {
 							<Button
 								variant="outline"
 								size="lg"
-								className="bg-gradient-to-r from-blue-500 to-purple-500 text-white border-none hover:from-blue-600 hover:to-purple-600 cursor-pointer"
+								className="gradient_bg_colors text-white border-none hover:from-blue-600 hover:to-purple-600 cursor-pointer"
 							>
 								Explore Our Programs
 							</Button>

@@ -102,7 +102,7 @@ const ContactSection = () => {
 								</div>
 								<Button
 									type="submit"
-									className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white border-none hover:from-blue-600 hover:to-purple-600"
+									className="w-full gradient_bg_colors   text-white border-none hover:from-blue-600 hover:to-purple-600"
 								>
 									Send Message
 								</Button>

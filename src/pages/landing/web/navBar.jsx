@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion as Motion } from "framer-motion";
 import { Home, Menu, X } from "lucide-react";
+import "../../../../src/App.css";
 
 const NavBarSection = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -18,10 +19,10 @@ const NavBarSection = () => {
 						transition={{ duration: 0.8 }}
 					>
 						<a href="/" className="flex items-center gap-3">
-							<div className="bg-gradient-to-tr from-blue-500 to-purple-500 p-2 rounded-full shadow-lg">
+							<div className="gradient_bg_colors   p-2 rounded-full shadow-lg">
 								<Home className="text-white h-6 w-6 animate-pulse" />
 							</div>
-							<h1 className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500 animate-fade-in">
+							<h1 className="text-2xl font-extrabold text-transparent bg-clip-text   text_gradient bg_clip_text animate-fade-in">
 								Department of Innovation
 							</h1>
 						</a>

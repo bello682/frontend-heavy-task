@@ -10,7 +10,10 @@ import Dash_own_details from "./pages/Dashboard-Components/dash-pages/dash_own_d
 
 function App() {
 	const location = useLocation();
-	const userDashboard = location.pathname.includes("/dashboard");
+	const userDashboard =
+		location.pathname.includes("/dashboard") ||
+		location.pathname.includes("/signup") ||
+		location.pathname.includes("/login");
 	return (
 		<>
 			{!userDashboard && <NavBarSection />}
