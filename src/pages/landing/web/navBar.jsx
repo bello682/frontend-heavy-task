@@ -22,7 +22,7 @@ const NavBarSection = () => {
 							<div className="gradient_bg_colors   p-2 rounded-full shadow-lg">
 								<Home className="text-white h-6 w-6 animate-pulse" />
 							</div>
-							<h1 className="text-2xl font-extrabold text-transparent bg-clip-text   text_gradient bg_clip_text animate-fade-in">
+							<h1 className=" hidden lg:block text-2xl font-extrabold text-transparent bg-clip-text   text_gradient bg_clip_text animate-fade-in">
 								Department of Innovation
 							</h1>
 						</a>
@@ -76,7 +76,7 @@ const NavBarSection = () => {
 
 				{/* Fullscreen Overlay Menu */}
 				{isOpen && (
-					<div className="fixed top-16 inset-0 bg-gray-900 bg-opacity-95 z-50 flex flex-col justify-center items-center space-y-8 text-xl lg:hidden">
+					<div className="fixed top-20 inset-0 bg-gray-900 bg-opacity-95 z-50 flex flex-col justify-center items-center space-y-8 text-xl lg:hidden">
 						<a
 							href="#about"
 							onClick={() => setIsOpen(false)}
