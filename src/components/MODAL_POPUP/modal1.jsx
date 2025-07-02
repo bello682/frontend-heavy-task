@@ -55,7 +55,7 @@ const Modal = ({
 		<AnimatePresence>
 			{isOpen && (
 				<Motion.div
-					className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black bg-opacity-70 backdrop-blur-sm" // Overlay styling
+					className="fixed inset-0 z-50  flex items-center justify-center p-4 sm:p-6 bg-black bg-opacity-70 backdrop-blur-sm" // Overlay styling
 					variants={overlayVariants}
 					initial="hidden"
 					animate="visible"
@@ -63,7 +63,7 @@ const Modal = ({
 					onClick={onClose} // Close modal when clicking on overlay
 				>
 					<Motion.div
-						className={`bg-white rounded-xl shadow-2xl px-4 mx-2 w-[100%]   lg:w-[70%] overflow-hidden
+						className={`bg-white rounded-xl shadow-2xl px-4 mx-2 w-[100%]  my-9  lg:w-[70%] overflow-hidden
                                     transform transition-all duration-300 ease-in-out ${className}`} // Modal card styling
 						variants={modalVariants}
 						initial="hidden"
@@ -72,7 +72,7 @@ const Modal = ({
 						onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
 					>
 						{/* Modal Header */}
-						<div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-200 bg-gray-50">
+						<div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-200 bg-gray-50 ">
 							<h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
 								{title}
 							</h2>
