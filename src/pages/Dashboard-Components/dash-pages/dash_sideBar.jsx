@@ -7,14 +7,21 @@ import {
 	Settings,
 	LogOut,
 	X,
+	Trash,
 } from "../../../components/Icons/lucid-icons"; // Import necessary icons
 import { Link, useNavigate } from "react-router-dom";
+import Modal from "../../../components/MODAL_POPUP/modal1";
 
 const navLinks = [
 	{ name: "Dashboard", icon: Home, to: "/dashboard" },
 	{ name: "Accounts", icon: Wallet, to: "/dashboard/accounts" },
 	{ name: "Cards", icon: CreditCard, to: "/dashboard/cards" },
 	{ name: "Settings", icon: Settings, to: "/dashboard/settings" },
+	{
+		name: "Delete-Account",
+		icon: Trash,
+		to: "/dashboard/deactivating-account",
+	},
 ];
 
 const Dash_Sidebar = ({ isOpen, onClose }) => {

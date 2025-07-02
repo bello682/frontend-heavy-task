@@ -23,7 +23,7 @@ const SignUp = () => {
 		try {
 			const response = await axios.post(
 				`${BASE_URL}/register`,
-				{ name },
+				{ name: name.toLowerCase() }, // ✅ Ensure name is lowercase
 				{ headers: { "Content-Type": "application/json" } }
 			);
 			setUser(response.data);

@@ -14,6 +14,7 @@ import FacultySection from "./pages/landing/web/facultySection";
 import ReasearchSection from "./pages/landing/web/reaserchSection";
 import NewsSection from "./pages/landing/web/newsSectiobn";
 import ContactSection from "./pages/landing/web/contactSection";
+import Deactivate_User_Account from "./pages/Dashboard-Components/dash-pages/deactivate_userAccount";
 
 function App() {
 	const location = useLocation();
@@ -49,6 +50,10 @@ function App() {
 						index
 						//  path="user-home"
 						element={<Dash_own_details />}
+					/>
+					<Route
+						path="deactivating-account"
+						element={<Deactivate_User_Account />}
 					/>
 					<Route
 						path="cards"

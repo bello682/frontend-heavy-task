@@ -18,4 +18,6 @@ export {
 	X,
 	Menu,
 	Loader2,
+	Delete,
+	Trash,
 } from "lucide-react";
