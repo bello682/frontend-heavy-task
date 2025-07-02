@@ -55,7 +55,7 @@ const Modal = ({
 		<AnimatePresence>
 			{isOpen && (
 				<Motion.div
-					className="fixed inset-0 z-50  flex items-center justify-center p-4 sm:p-6 bg-black bg-opacity-70 backdrop-blur-sm" // Overlay styling
+					className="fixed inset-0 z-50 overflow-auto flex items-center justify-center p-4 sm:p-6 bg-black bg-opacity-70 backdrop-blur-sm" // Overlay styling
 					variants={overlayVariants}
 					initial="hidden"
 					animate="visible"
