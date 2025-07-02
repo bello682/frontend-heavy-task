@@ -25,10 +25,10 @@ const ProgramSection = () => {
 		<div>
 			<section
 				id="programs"
-				className="bg-gray-800 py-16 md:py-24 lg:py-32 px-6 md:px-10 lg:px-20 h-screen"
+				className="bg-gray-800 py-16 md:py-24 lg:py-32 px-6 md:px-10 lg:px-20 h-full"
 			>
 				<div className="container mx-auto">
-					<h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 text-center mt-6">
+					<h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 text-center">
 						Our Programs
 					</h2>
 					<Motion.div

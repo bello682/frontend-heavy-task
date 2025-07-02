@@ -1,3 +1,39 @@
+/* Already handled by Tailwind CSS Preflight, but good to know its importance */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* In your main CSS file (e.g., src/index.css or global.css) */
+
+/* Apply to the root element or main layout container */
+body,
+#root,
+.app-container {
+	padding-top: env(safe-area-inset-top);
+	padding-right: env(safe-area-inset-right);
+	padding-bottom: env(safe-area-inset-bottom);
+	padding-left: env(safe-area-inset-left);
+
+	/* Fallback for older iOS versions (less common now, but good for robustness) */
+	padding-top: constant(safe-area-inset-top);
+	padding-right: constant(safe-area-inset-right);
+	padding-bottom: constant(safe-area-inset-bottom);
+	padding-left: constant(safe-area-inset-left);
+}
+
+/* Example for a fixed header/footer that should respect safe areas */
+.fixed-header {
+	padding-top: env(safe-area-inset-top);
+	/* Add other padding/styles as needed */
+}
+
+.fixed-footer {
+	padding-bottom: env(safe-area-inset-bottom);
+	/* Add other padding/styles as needed */
+}
+
 /* =========================== GRADIENTS LINEAR COLORS FOR BACKGROUNDS LIKE BUTTONS HEADERS ONLY ================================= */
 .gradient_bg_colors {
 	background: -webkit-linear-gradient(
