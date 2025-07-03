@@ -87,7 +87,7 @@ const CourseDetailPage = () => {
 			<div className="max-w-7xl mx-auto mt-20">
 				{/* Course Title and Purchase Button */}
 				<Motion.header
-					className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 pb-4 border-b border-gray-light"
+					className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 pb-4 border-b border-gray-light "
 					variants={headerVariants}
 					initial="hidden"
 					animate="visible"
@@ -101,7 +101,7 @@ const CourseDetailPage = () => {
 							setIsPaymentSidebarOpen(true);
 						}}
 						className="px-6 py-3 bg-accent-blue text-primary-white font-bold text-lg rounded-lg shadow-md
-                                   hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105 flex items-center space-x-2"
+                                   hover:bg-[#3b82f6] transition-colors duration-300 transform hover:scale-105 flex items-center space-x-2"
 						whileHover={{ scale: 1.05 }}
 						whileTap={{ scale: 0.95 }}
 					>
@@ -174,48 +174,50 @@ const CourseDetailPage = () => {
 							</div>
 						)}
 
-						{course.modules && course.modules.length > 0 && (
-							<div>
-								<h3 className="text-xl font-semibold text-gray-text mb-2 flex items-center space-x-2">
-									<BookOpen size={20} className="text-accent-blue" />
-									<span>Course Modules:</span>
-								</h3>
-								<ul className="list-disc list-inside text-gray-700 space-y-1">
-									{course.modules.map((module, index) => (
-										<li key={index}>{module}</li>
-									))}
-								</ul>
-							</div>
-						)}
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 ">
+							{course.modules && course.modules.length > 0 && (
+								<div>
+									<h3 className="text-xl font-semibold text-gray-text mb-2 flex items-center space-x-2">
+										<BookOpen size={20} className="text-accent-blue" />
+										<span>Course Modules:</span>
+									</h3>
+									<ul className="list-disc list-inside text-gray-700 space-y-1">
+										{course.modules.map((module, index) => (
+											<li key={index}>{module}</li>
+										))}
+									</ul>
+								</div>
+							)}
 
-						{course.benefits && course.benefits.length > 0 && (
-							<div>
-								<h3 className="text-xl font-semibold text-gray-text mb-2 flex items-center space-x-2">
-									<CheckCircle size={20} className="text-accent-blue" />
-									<span>What You'll Learn:</span>
-								</h3>
-								<ul className="list-disc list-inside text-gray-700 space-y-1">
-									{course.benefits.map((benefit, index) => (
-										<li key={index}>{benefit}</li>
-									))}
-								</ul>
-							</div>
-						)}
+							{course.benefits && course.benefits.length > 0 && (
+								<div>
+									<h3 className="text-xl font-semibold text-gray-text mb-2 flex items-center space-x-2">
+										<CheckCircle size={20} className="text-accent-blue" />
+										<span>What You'll Learn:</span>
+									</h3>
+									<ul className="list-disc list-inside text-gray-700 space-y-1">
+										{course.benefits.map((benefit, index) => (
+											<li key={index}>{benefit}</li>
+										))}
+									</ul>
+								</div>
+							)}
+						</div>
 					</div>
 				</Motion.section>
 
 				{/* Related Courses Section */}
 				{relatedCourses.length > 0 && (
 					<Motion.section
-						className="mb-12"
+						className="mb-12  justify-center m-auto items-center flex flex-col"
 						initial={{ opacity: 0, y: 50 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.4 }}
 					>
-						<h2 className="text-3xl sm:text-4xl font-bold text-gray-text mb-6">
+						<h2 className="text-3xl sm:text-4xl font-bold text-gray-text mb-10">
 							Related Courses
 						</h2>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 ">
 							{relatedCourses.map((relatedCourse) => (
 								<CourseCard key={relatedCourse.id} course={relatedCourse} />
 							))}

@@ -154,7 +154,7 @@ const ChatModal = ({ isOpen, onClose }) => {
 						</div>
 
 						{/* Chat Body - Messages */}
-						<div className="flex-1 p-4 overflow-y-auto space-y-4 bg-gray-50">
+						<div className="flex-1 p-4 overflow-y-auto space-y-4 bg-gray-800">
 							{messages.map((msg) => (
 								<div
 									key={msg.id}
@@ -167,7 +167,7 @@ const ChatModal = ({ isOpen, onClose }) => {
                                                      ${
 																												msg.sender === "User"
 																													? "bg-accent-blue text-primary-white"
-																													: "bg-gray-200 text-gray-text"
+																													: "bg-gray-900 text-gray-text"
 																											}`}
 									>
 										<p className="text-sm">{msg.text}</p>

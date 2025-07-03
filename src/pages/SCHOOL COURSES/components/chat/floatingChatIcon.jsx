@@ -44,7 +44,7 @@ const FloatingChatIcon = () => {
 					y: position.y,
 				}}
 			>
-				<div className="bg-accent-blue text-primary-white p-4 rounded-full shadow-lg hover:shadow-xl transition-shadow duration-200">
+				<div className="bg-gray-700 text-primary-white p-4 rounded-full shadow-lg hover:shadow-xl transition-shadow duration-200">
 					<MessageSquare size={32} /> {/* Chat icon */}
 				</div>
 			</Motion.div>
