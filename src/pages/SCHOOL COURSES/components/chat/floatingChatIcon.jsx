@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion as Motion } from "framer-motion";
 import { MessageSquare } from "../../../../components/Icons/lucid-icons"; // Assuming MessageSquare is exported
-import ChatModal from "./ChatModal"; // Import the chat modal
+import ChatModal from "./chatModal";
 
 const FloatingChatIcon = () => {
 	const [isChatModalOpen, setIsChatModalOpen] = useState(false);
