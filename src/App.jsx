@@ -15,6 +15,8 @@ import ReasearchSection from "./pages/landing/web/reaserchSection";
 import NewsSection from "./pages/landing/web/newsSectiobn";
 import ContactSection from "./pages/landing/web/contactSection";
 import Deactivate_User_Account from "./pages/Dashboard-Components/dash-pages/deactivate_userAccount";
+import CoursesAllExport from "./pages/SCHOOL COURSES/coursesAllExport";
+import CourseDetailPage from "./pages/SCHOOL COURSES/courseDetailPage";
 
 function App() {
 	const location = useLocation();
@@ -29,6 +31,11 @@ function App() {
 				<Route index path="/" element={<DepartmentLandingPage />} />
 				<Route path="/signup" element={<SignUp />} />
 				<Route path="/login" element={<LoginPage />} />
+
+				{/* Courses Home Section */}
+				<Route path="/all-our-courses" element={<CoursesAllExport />} />
+				{/* Single Section Page Per Course */}
+				<Route path="/course/:id" element={<CourseDetailPage />} />
 
 				{/* Hero Section */}
 				<Route path="/dashboard" element={<Herosection />} />
@@ -76,7 +83,6 @@ function App() {
 						}
 					/>
 				</Route>
-
 				<Route path="*" element={<NotFound />} />
 			</Routes>
 
