@@ -1,14 +1,15 @@
 // src/pages/CourseDetailPage.jsx
-
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
 import {
 	getCourseById,
 	getRelatedCourses,
-} from "../../components/COURSE COMPONENTS/API";
-import PaymentSidebar from "./components/payments/paymentSideBar";
+} from "./../../components/COURSE COMPONENTS/API";
 import CourseCard from "./../../components/COURSE COMPONENTS/courseCard";
+import PaymentSidebar from "./components/payments/paymentSideBar";
+import PaymentSuccessCard from "./components/modals & cards/paymentSuccessfullCard";
+import ReceiptModal from "./components/modals & cards/paymentReceiptModal";
 import {
 	ShoppingCart,
 	BookOpen,
@@ -19,7 +20,6 @@ import {
 	List,
 	CheckCircle,
 } from "../../components/Icons/lucid-icons"; // Import necessary icons
-// import { useUserData } from "../../components/api/userDatasApi";
 
 const CourseDetailPage = () => {
 	const { id } = useParams(); // Get course ID from URL
@@ -27,8 +27,9 @@ const CourseDetailPage = () => {
 	const [course, setCourse] = useState(null);
 	const [relatedCourses, setRelatedCourses] = useState([]);
 	const [isPaymentSidebarOpen, setIsPaymentSidebarOpen] = useState(false);
-	const [paymentStatus, setPaymentStatus] = useState(null); // 'success' or 'failed'
-	// const { user loading, error } = useUserData();
+	const [showPaymentSuccessModal, setShowPaymentSuccessModal] = useState(false); // NEW: State for success card
+	const [showReceiptModal, setShowReceiptModal] = useState(false); // NEW: State for receipt modal
+	const [receiptDetails, setReceiptDetails] = useState(null); // NEW: State for receipt data
 
 	useEffect(() => {
 		// Fetch course details based on ID
@@ -37,39 +38,43 @@ const CourseDetailPage = () => {
 			setCourse(foundCourse);
 			// Fetch related courses, excluding the current one
 			setRelatedCourses(getRelatedCourses(id, 4)); // Get 4 related courses
-			// Reset payment status when a new course is loaded
-			setPaymentStatus(null);
+			// Reset modal states when a new course is loaded
+			setIsPaymentSidebarOpen(false);
+			setShowPaymentSuccessModal(false);
+			setShowReceiptModal(false);
+			setReceiptDetails(null);
 		} else {
 			// If course not found, navigate to home or a 404 page
 			navigate("/");
 		}
 	}, [id, navigate]);
 
-	// Handle payment success (dummy function for now)
-	const handlePaymentSuccess = () => {
+	// This function is now called by PaymentSidebar upon successful payment
+	const handlePaymentSuccess = (receiptData) => {
+		// NEW: Receive receiptData from sidebar
 		console.log("Payment successful for course:", course.title);
-		setPaymentStatus("success");
-		setIsPaymentSidebarOpen(false); // Close sidebar on success
-		// In a real app, you'd trigger a receipt generation or navigate
+		setReceiptDetails(receiptData); // Store receipt data
+		setIsPaymentSidebarOpen(false); // Close sidebar FIRST
+		setShowPaymentSuccessModal(true); // THEN show success card
 	};
 
-	// Handle payment failure (dummy function for now)
+	// This function is called by PaymentSidebar upon failed payment
 	const handlePaymentFailure = () => {
 		console.log("Payment failed for course:", course.title);
-		setPaymentStatus("failed");
-		// Optionally keep sidebar open or show a specific error message within it
+		// You might want to keep the sidebar open or show an error message within it
+		// setIsPaymentSidebarOpen(false); // Optionally close sidebar on failure
 	};
 
-	// Animation variants for section headers
-	const headerVariants = {
-		hidden: { opacity: 0, y: -20 },
-		visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+	// Open receipt modal from success card
+	const handleViewReceipt = () => {
+		setShowPaymentSuccessModal(false); // Close success card
+		setShowReceiptModal(true); // Open receipt modal
 	};
 
-	// Animation variants for content sections
-	const contentVariants = {
-		hidden: { opacity: 0, x: -20 },
-		visible: { opacity: 1, x: 0, transition: { duration: 0.6, delay: 0.2 } },
+	// Close all modals/sidebar when done with receipt
+	const handleCloseReceiptModal = () => {
+		setShowReceiptModal(false);
+		// Optionally navigate away or reset course selection here
 	};
 
 	if (!course) {
@@ -80,15 +85,16 @@ const CourseDetailPage = () => {
 		); // Or a custom loader component
 	}
 
-	console.log(paymentStatus);
-
 	return (
 		<div className="min-h-screen bg-gray-bg font-inter text-primary-black py-8 px-4 sm:px-6 lg:px-8">
 			<div className="max-w-7xl mx-auto mt-20">
 				{/* Course Title and Purchase Button */}
 				<Motion.header
-					className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 pb-4 border-b border-gray-light "
-					variants={headerVariants}
+					className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 pb-4 border-b border-gray-light"
+					variants={{
+						hidden: { opacity: 0, y: -20 },
+						visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+					}}
 					initial="hidden"
 					animate="visible"
 				>
@@ -96,10 +102,7 @@ const CourseDetailPage = () => {
 						{course.title}
 					</h1>
 					<Motion.button
-						onClick={() => {
-							// user ? setIsPaymentSidebarOpen(true) : navigate("/signup");
-							setIsPaymentSidebarOpen(true);
-						}}
+						onClick={() => setIsPaymentSidebarOpen(true)}
 						className="px-6 py-3 bg-accent-blue text-primary-white font-bold text-lg rounded-lg shadow-md
                                    hover:bg-[#3b82f6] transition-colors duration-300 transform hover:scale-105 flex items-center space-x-2"
 						whileHover={{ scale: 1.05 }}
@@ -113,7 +116,14 @@ const CourseDetailPage = () => {
 				{/* Course Details Section */}
 				<Motion.section
 					className="bg-primary-white rounded-xl shadow-lg p-6 sm:p-8 mb-12 grid grid-cols-1 lg:grid-cols-2 gap-8"
-					variants={contentVariants}
+					variants={{
+						hidden: { opacity: 0, x: -20 },
+						visible: {
+							opacity: 1,
+							x: 0,
+							transition: { duration: 0.6, delay: 0.2 },
+						},
+					}}
 					initial="hidden"
 					animate="visible"
 				>
@@ -173,7 +183,6 @@ const CourseDetailPage = () => {
 								<p className="text-gray-700">{course.prerequisites}</p>
 							</div>
 						)}
-
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 ">
 							{course.modules && course.modules.length > 0 && (
 								<div>
@@ -217,7 +226,7 @@ const CourseDetailPage = () => {
 						<h2 className="text-3xl sm:text-4xl font-bold text-gray-text mb-10">
 							Related Courses
 						</h2>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 ">
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
 							{relatedCourses.map((relatedCourse) => (
 								<CourseCard key={relatedCourse.id} course={relatedCourse} />
 							))}
@@ -226,16 +235,33 @@ const CourseDetailPage = () => {
 				)}
 			</div>
 
-			{/* Payment Sidebar */}
+			{/* Payment Sidebar - now only controls its own visibility */}
 			<PaymentSidebar
 				isOpen={isPaymentSidebarOpen}
 				onClose={() => setIsPaymentSidebarOpen(false)}
 				course={course}
-				onPaymentSuccess={handlePaymentSuccess}
+				onPaymentSuccess={handlePaymentSuccess} // Pass the updated handler
 				onPaymentFailure={handlePaymentFailure}
+			/>
+
+			{/* Payment Success Card Modal - Rendered directly here */}
+			<PaymentSuccessCard
+				isOpen={showPaymentSuccessModal}
+				onClose={() => setShowPaymentSuccessModal(false)}
+				onViewReceipt={handleViewReceipt}
+				courseTitle={course.title}
+			/>
+
+			{/* Receipt Modal - Rendered directly here */}
+			<ReceiptModal
+				isOpen={showReceiptModal}
+				onClose={handleCloseReceiptModal} // Use the specific close handler
+				receiptDetails={receiptDetails}
 			/>
 		</div>
 	);
 };
 
 export default CourseDetailPage;
+
+
