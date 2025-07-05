@@ -14,9 +14,9 @@ const Data_Balance_Card = ({
 	const { user, loading, error } = useUserData();
 
 	if (user) {
-		console.log(user);
+		<div></div>;
 	} else if (error) {
-		console.log(error);
+		<div></div>;
 	}
 
 	return (

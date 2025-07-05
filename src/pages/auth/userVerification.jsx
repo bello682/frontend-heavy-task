@@ -105,6 +105,7 @@ const UserVerificationPage = () => {
 			}
 
 			setSuccessMessage(data.message || "OTP verified successfully!");
+
 			// In a real app, you would navigate to the next page (e.g., dashboard)
 			setTimeout(() => {
 				navigate("/login");
@@ -147,7 +148,7 @@ const UserVerificationPage = () => {
 	return (
 		<div>
 			{/* Logo and Title - positioned at top-left, responsive */}
-			<div className=" fixed top-9 left-10 z-10 ">
+			<div className=" fixed top-9 left-10 z-100 ">
 				<Motion.div
 					className="flex items-center gap-3 "
 					initial={{ opacity: 0, x: -30 }}

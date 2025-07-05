@@ -20,6 +20,9 @@ import {
 	List,
 	CheckCircle,
 } from "../../components/Icons/lucid-icons"; // Import necessary icons
+import { HalfScreenDropdown } from "../../components/MODAL_POPUP/topDropdownModal";
+import { Link } from "react-router-dom";
+// import { useUserData } from "../../components/api/userDatasApi";
 
 const CourseDetailPage = () => {
 	const { id } = useParams(); // Get course ID from URL
@@ -30,6 +33,12 @@ const CourseDetailPage = () => {
 	const [showPaymentSuccessModal, setShowPaymentSuccessModal] = useState(false); // NEW: State for success card
 	const [showReceiptModal, setShowReceiptModal] = useState(false); // NEW: State for receipt modal
 	const [receiptDetails, setReceiptDetails] = useState(null); // NEW: State for receipt data
+	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+	// const { user, loading, error } = useUserData;
+	const user = localStorage.getItem("isVerified") === true;
+
+	// Use this function for triggering signup dropdown
+	const TriggerSignUpPage = () => setIsDropdownOpen(true);
 
 	useEffect(() => {
 		// Fetch course details based on ID
@@ -52,7 +61,7 @@ const CourseDetailPage = () => {
 	// This function is now called by PaymentSidebar upon successful payment
 	const handlePaymentSuccess = (receiptData) => {
 		// NEW: Receive receiptData from sidebar
-		console.log("Payment successful for course:", course.title);
+		alert("Payment successful for course:", course.title);
 		setReceiptDetails(receiptData); // Store receipt data
 		setIsPaymentSidebarOpen(false); // Close sidebar FIRST
 		setShowPaymentSuccessModal(true); // THEN show success card
@@ -60,7 +69,7 @@ const CourseDetailPage = () => {
 
 	// This function is called by PaymentSidebar upon failed payment
 	const handlePaymentFailure = () => {
-		console.log("Payment failed for course:", course.title);
+		alert("Payment failed for course:", course.title);
 		// You might want to keep the sidebar open or show an error message within it
 		// setIsPaymentSidebarOpen(false); // Optionally close sidebar on failure
 	};
@@ -101,16 +110,27 @@ const CourseDetailPage = () => {
 					<h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-text mb-4 md:mb-0">
 						{course.title}
 					</h1>
-					<Motion.button
-						onClick={() => setIsPaymentSidebarOpen(true)}
-						className="px-6 py-3 bg-accent-blue text-primary-white font-bold text-lg rounded-lg shadow-md
-                                   hover:bg-[#3b82f6] transition-colors duration-300 transform hover:scale-105 flex items-center space-x-2"
-						whileHover={{ scale: 1.05 }}
-						whileTap={{ scale: 0.95 }}
-					>
-						<ShoppingCart size={20} />
-						<span>Purchase This Course Now</span>
-					</Motion.button>
+
+					{user ? (
+						<Motion.button
+							onClick={() => setIsPaymentSidebarOpen(true)}
+							className="px-6 py-3 bg-accent-blue text-primary-white font-bold text-lg rounded-lg shadow-md
+               hover:bg-[#3b82f6] transition-colors duration-300 transform hover:scale-105 flex items-center space-x-2 cursor-pointer"
+							whileHover={{ scale: 1.05 }}
+							whileTap={{ scale: 0.95 }}
+						>
+							<ShoppingCart size={20} />
+							<span>Purchase This Course Now</span>
+						</Motion.button>
+					) : (
+						<button
+							onClick={() => TriggerSignUpPage()}
+							className="cursor-pointer flex gap-2 justify-center items-center px-6 py-3 bg-accent-blue text-white font-bold text-lg rounded-lg shadow-md
+               hover:bg-[#3b82f6] transition-colors duration-300 transform hover:scale-105"
+						>
+							<ShoppingCart size={20} /> Purchase This Course Now
+						</button>
+					)}
 				</Motion.header>
 
 				{/* Course Details Section */}
@@ -258,10 +278,32 @@ const CourseDetailPage = () => {
 				onClose={handleCloseReceiptModal} // Use the specific close handler
 				receiptDetails={receiptDetails}
 			/>
+			{/* half screen dropdown  */}
+
+			<HalfScreenDropdown
+				isOpen={isDropdownOpen}
+				onClose={() => setIsDropdownOpen(false)}
+				title="🚀 Join Innovation University Today!"
+			>
+				<div className="text-center max-w-md mx-auto px-4 py-6">
+					<p className="text-lg md:text-xl text-white mb-6 leading-relaxed font-medium">
+						You need to be signed up to purchase this course and access all
+						learning resources. Don’t miss out on amazing knowledge and
+						exclusive features!
+					</p>
+
+					<Link to="/signup">
+						<button
+							className="gradient_bg_colors 
+                   text-white text-lg font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300"
+						>
+							🎓 Sign Up Now
+						</button>
+					</Link>
+				</div>
+			</HalfScreenDropdown>
 		</div>
 	);
 };
 
 export default CourseDetailPage;
-
-

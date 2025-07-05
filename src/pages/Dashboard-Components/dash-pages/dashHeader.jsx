@@ -13,7 +13,9 @@ const Dash_Header = ({ notifications, itemVariants, toggleSidebar }) => {
 	const firstName = user?.name.split(" ")[0];
 
 	if (error) {
-		console.log(error.message);
+		<div className="text-white flex justify-center items-center ">
+			{error.message}
+		</div>;
 	}
 
 	return (

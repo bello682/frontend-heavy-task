@@ -305,7 +305,7 @@ const SignUp = () => {
 				navigate("/otp-verification");
 			}, 2000);
 		} catch (err) {
-			console.error("Registration error:", err);
+			// console.error("Registration error:", err);
 			setError(err.message || "An unknown error occurred during registration.");
 		} finally {
 			setLoading(false); // Reset loading state
@@ -342,7 +342,7 @@ const SignUp = () => {
 	return (
 		<div className="">
 			{/* Logo and Title - positioned at top-left, responsive */}
-			<div className=" fixed top-9 left-10 z-10 ">
+			<div className=" fixed top-9 left-10 z-100 ">
 				<Motion.div
 					className="flex items-center gap-3 "
 					initial={{ opacity: 0, x: -30 }}

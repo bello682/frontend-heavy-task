@@ -9,14 +9,16 @@ export const useDeleteUser = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const [deleted, setDeleted] = useState(false);
+	const [message____, setMessage____] = useState(false);
 
 	const deleteUser = async () => {
+		setMessage____();
 		setLoading(true);
 		setError(null);
 		setDeleted(false);
 
 		try {
-			const token = localStorage.getItem("departmentToken");
+			const token = localStorage.getItem("accessToken");
 
 			const response = await axios.delete(`${BASE_URL}/deleteDepartment`, {
 				headers: {
@@ -25,7 +27,7 @@ export const useDeleteUser = () => {
 			});
 
 			setDeleted(true);
-			console.log("User deleted:", response.data);
+			setMessage____(response.data);
 		} catch (err) {
 			console.error("Delete error:", err);
 			setError(err.response?.data?.message || err.message || "Unknown error");
@@ -34,5 +36,5 @@ export const useDeleteUser = () => {
 		}
 	};
 
-	return { deleteUser, loading, error, deleted };
+	return { deleteUser, loading, error, deleted, message____ };
 };

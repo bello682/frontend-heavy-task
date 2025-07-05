@@ -10,7 +10,7 @@ export const useUserData = () => {
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		const token = localStorage.getItem("departmentToken");
+		const token = localStorage.getItem("accessToken");
 
 		const fetchUser = async () => {
 			try {

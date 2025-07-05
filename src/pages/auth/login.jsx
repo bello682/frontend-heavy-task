@@ -64,7 +64,6 @@ const LoginPage = () => {
 			});
 
 			const data = await response.json(); // Parse response JSON
-			console.log(data);
 
 			if (!response.ok) {
 				// If response is not OK (e.g., 4xx or 5xx status)
@@ -72,14 +71,18 @@ const LoginPage = () => {
 					data.message || "Login failed. Please check your credentials."
 				);
 			}
+
 			localStorage.setItem("accessToken", data?.token);
+			localStorage.setItem(
+				"isVerified",
+				data?.userData_Spread?._doc?.isVerified
+			);
 			setSuccessMessage(data.message || "Login successful! Redirecting...");
 			setTimeout(() => {
-				console.log("Login successful. Navigating to dashboard...");
 				navigate("/dashboard");
 			}, 2000);
 		} catch (err) {
-			console.error("Login error:", err);
+			// console.error("Login error:", err);
 			setError(err.message || "An unknown error occurred during login.");
 		} finally {
 			setLoading(false); // Reset loading state
@@ -116,7 +119,7 @@ const LoginPage = () => {
 	return (
 		<div className="">
 			{/* Logo and Title - positioned at top-left, responsive */}
-			<div className=" fixed top-9 left-10 z-10 ">
+			<div className=" fixed top-9 left-10 z-100 ">
 				<Motion.div
 					className="flex items-center gap-3 "
 					initial={{ opacity: 0, x: -30 }}

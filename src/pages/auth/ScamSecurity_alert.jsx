@@ -26,8 +26,6 @@ const Scam_Security_alert_Page = () => {
 	const queryParams = new URLSearchParams(location.search);
 	const userId = queryParams.get("id");
 
-	console.log(userId);
-
 	// State variables for loading, error, and success messages
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -54,6 +52,10 @@ const Scam_Security_alert_Page = () => {
 			otpInputRefs.current[index + 1].focus();
 		}
 	};
+
+	if (userId) {
+		<div></div>;
+	}
 
 	// Handles backspace key press for OTP inputs
 	const handleKeyDown = (element, index) => {
@@ -160,7 +162,7 @@ const Scam_Security_alert_Page = () => {
 	return (
 		<div className="">
 			{/* Logo and Title - positioned at top-left, responsive */}
-			<div className=" fixed top-9 left-10 z-10 ">
+			<div className=" fixed top-9 left-10 z-100 ">
 				<Motion.div
 					className="flex items-center gap-3 "
 					initial={{ opacity: 0, x: -30 }}
