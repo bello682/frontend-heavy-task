@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const BASE_URL =
-	import.meta.env.VITE_BASE_URL ||
-	"https://backend-heavy-task.onrender.com/api_url/users/task";
+	import.meta.env.VITE_BASE_URL || "http://localhost:7075/api_url/users/task";
 
 export const useUserData = () => {
 	const [user, setUser] = useState(null);

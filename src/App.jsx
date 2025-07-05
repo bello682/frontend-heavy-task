@@ -17,28 +17,46 @@ import ContactSection from "./pages/landing/web/contactSection";
 import Deactivate_User_Account from "./pages/Dashboard-Components/dash-pages/deactivate_userAccount";
 import CoursesAllExport from "./pages/SCHOOL COURSES/coursesAllExport";
 import CourseDetailPage from "./pages/SCHOOL COURSES/courseDetailPage";
+import UserVerificationPage from "./pages/auth/userVerification";
+import Resend_User_Otp from "./pages/auth/resendOtp";
+import Forget_Password from "./pages/auth/forgetPassword";
+import Reset_Password from "./pages/auth/resetPassword";
+import Scam_Security_alert_Page from "./pages/auth/ScamSecurity_alert";
+import Contact_Support_Page from "./pages/auth/contact_support";
 
 function App() {
 	const location = useLocation();
 	const userDashboard =
 		location.pathname.includes("/dashboard") ||
 		location.pathname.includes("/signup") ||
+		location.pathname.includes("/otp-verification") ||
+		location.pathname.includes("/otp-resending") ||
+		location.pathname.includes("/forgot-password") ||
+		location.pathname.includes("/password-reset/:token") ||
+		location.pathname.includes("/security-alert") ||
+		location.pathname.includes("/contact-support") ||
 		location.pathname.includes("/login");
+	location.pathname.includes("/*");
 	return (
 		<>
 			{!userDashboard && <NavBarSection />}
 			<Routes>
 				<Route index path="/" element={<DepartmentLandingPage />} />
 				<Route path="/signup" element={<SignUp />} />
+				<Route path="/otp-verification" element={<UserVerificationPage />} />
+				<Route path="/otp-resending" element={<Resend_User_Otp />} />
+				<Route path="/forgot-password" element={<Forget_Password />} />
+				<Route path="/password-reset/:token" element={<Reset_Password />} />
+				\
+				<Route path="/security-alert" element={<Scam_Security_alert_Page />} />
+				<Route path="/contact-support" element={<Contact_Support_Page />} />
 				<Route path="/login" element={<LoginPage />} />
-
 				{/* Courses Home Section */}
 				<Route path="/all-our-courses" element={<CoursesAllExport />} />
 				{/* Single Section Page Per Course */}
 				<Route path="/course/:id" element={<CourseDetailPage />} />
-
 				{/* Hero Section */}
-				<Route path="/dashboard" element={<Herosection />} />
+				<Route path="/" element={<Herosection />} />
 				{/* About Us Section */}
 				<Route path="/about" element={<AboutSection />} />
 				{/* Programs Section */}
@@ -51,7 +69,6 @@ function App() {
 				<Route path="/news" element={<NewsSection />} />
 				{/* Contact Section */}
 				<Route path="/contact" element={<ContactSection />} />
-
 				<Route path="/dashboard" element={<Dashboard_Body />}>
 					<Route
 						index

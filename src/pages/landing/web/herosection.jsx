@@ -30,8 +30,8 @@ const Herosection = () => {
 						animate={{ opacity: 1, scale: 1 }}
 						transition={{ duration: 0.6, ease: "easeInOut", delay: 0.6 }}
 					>
-						{/* <Link to="/signup"> */}
-						<Link to="/all-our-courses">
+						<Link to="/signup">
+							{/* <Link to="/all-our-courses"> */}
 							<Button
 								variant="outline"
 								size="lg"
