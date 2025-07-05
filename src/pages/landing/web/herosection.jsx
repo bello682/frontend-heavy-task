@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import "../../../../src/App.css";
 
 const Herosection = () => {
+	const isVerified =
+		localStorage.getItem("isVerified") === "true" ||
+		localStorage.getItem("userId");
 	return (
 		<div>
 			<section className="bg-gradient-to-br from-gray-800 to-gray-900 py-16 md:py-24 lg:py-32 px-6 md:px-10 lg:px-20 h-screen">
@@ -25,21 +28,60 @@ const Herosection = () => {
 					>
 						Shaping the future through cutting-edge research and education.
 					</Motion.p>
-					<Motion.div
-						initial={{ opacity: 0, scale: 0.8 }}
-						animate={{ opacity: 1, scale: 1 }}
-						transition={{ duration: 0.6, ease: "easeInOut", delay: 0.6 }}
-					>
-						<Link to="/all-our-courses">
-							<Button
-								variant="outline"
-								size="lg"
-								className="gradient_bg_colors text-white border-none hover:from-blue-600 hover:to-purple-600 cursor-pointer"
-							>
-								Explore Our Programs
-							</Button>
-						</Link>
-					</Motion.div>
+					<div className="flex gap-3">
+						<Motion.div
+							initial={{ opacity: 0, scale: 0.8 }}
+							animate={{ opacity: 1, scale: 1 }}
+							transition={{ duration: 0.6, ease: "easeInOut", delay: 0.6 }}
+						>
+							<Link to="/all-our-courses">
+								<Button
+									variant="outline"
+									size="lg"
+									className="gradient_bg_colors text-white border-none hover:from-blue-600 hover:to-purple-600 cursor-pointer"
+								>
+									Explore Our Programs
+								</Button>
+							</Link>
+						</Motion.div>
+						{isVerified ? (
+							<>
+								<Motion.div
+									initial={{ opacity: 0, scale: 0.8 }}
+									animate={{ opacity: 1, scale: 1 }}
+									transition={{ duration: 0.6, ease: "easeInOut", delay: 0.9 }}
+								>
+									<Link to="/login">
+										<Button
+											variant="outline"
+											size="lg"
+											className=" text-white border-1 cursor-pointer"
+										>
+											Get Started
+										</Button>
+									</Link>
+								</Motion.div>{" "}
+							</>
+						) : (
+							<>
+								<Motion.div
+									initial={{ opacity: 0, scale: 0.8 }}
+									animate={{ opacity: 1, scale: 1 }}
+									transition={{ duration: 0.6, ease: "easeInOut", delay: 0.9 }}
+								>
+									<Link to="/signup">
+										<Button
+											variant="outline"
+											size="lg"
+											className=" text-white border-1 cursor-pointer"
+										>
+											Join Us Now
+										</Button>
+									</Link>
+								</Motion.div>{" "}
+							</>
+						)}
+					</div>
 				</div>
 			</section>
 		</div>

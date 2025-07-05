@@ -10,13 +10,14 @@ export const useUserData = () => {
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		const token = localStorage.getItem("accessToken");
+		// const token = localStorage.getItem("accessToken");
 
 		const fetchUser = async () => {
 			try {
 				const response = await axios.get(`${BASE_URL}/getDepartments`, {
 					headers: {
-						Authorization: `Bearer ${token}`,
+						// Authorization: `Bearer ${token}`,
+						"Content-Type": "application/json",
 					},
 				});
 				setUser(response.data.data.createDepartment);

@@ -32,7 +32,7 @@ function App() {
 		location.pathname.includes("/otp-verification") ||
 		location.pathname.includes("/otp-resending") ||
 		location.pathname.includes("/forgot-password") ||
-		location.pathname.includes("/password-reset/:token") ||
+		location.pathname.includes("/password-reset/") ||
 		location.pathname.includes("/security-alert") ||
 		location.pathname.includes("/contact-support") ||
 		location.pathname.includes("/login");

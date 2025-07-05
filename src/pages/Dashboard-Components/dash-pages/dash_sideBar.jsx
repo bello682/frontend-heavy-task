@@ -11,6 +11,7 @@ import {
 } from "../../../components/Icons/lucid-icons"; // Import necessary icons
 import { Link, useNavigate } from "react-router-dom";
 import Modal from "../../../components/MODAL_POPUP/modal1";
+import { logoutUser } from "../../../components/api/logoutUser";
 
 const navLinks = [
 	{ name: "Dashboard", icon: Home, to: "/dashboard" },
@@ -109,7 +110,7 @@ const Dash_Sidebar = ({ isOpen, onClose }) => {
 						whileHover={{ x: 5 }}
 						whileTap={{ scale: 0.98 }}
 						onClick={() => {
-							navigate("/login");
+							logoutUser(navigate);
 						}} // Replace with actual logout logic
 					>
 						<LogOut size={20} />

@@ -27,6 +27,10 @@ export const useDeleteUser = () => {
 			});
 
 			setDeleted(true);
+			localStorage.removeItem("isVerified");
+			localStorage.removeItem("deviceId");
+			localStorage.removeItem("accessToken");
+			localStorage.removeItem("userId");
 			setMessage____(response.data);
 		} catch (err) {
 			console.error("Delete error:", err);

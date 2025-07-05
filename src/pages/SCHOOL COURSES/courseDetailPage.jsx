@@ -21,7 +21,8 @@ import {
 	CheckCircle,
 } from "../../components/Icons/lucid-icons"; // Import necessary icons
 import { HalfScreenDropdown } from "../../components/MODAL_POPUP/topDropdownModal";
-import { Link } from "react-router-dom";
+import AuthModalWrapper from "./../../components/REUSABLE_AUTH_MODAL_SIGN_UP/AutoWrapModals";
+// import { Link } from "react-router-dom";
 // import { useUserData } from "../../components/api/userDatasApi";
 
 const CourseDetailPage = () => {
@@ -34,11 +35,19 @@ const CourseDetailPage = () => {
 	const [showReceiptModal, setShowReceiptModal] = useState(false); // NEW: State for receipt modal
 	const [receiptDetails, setReceiptDetails] = useState(null); // NEW: State for receipt data
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+	const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 	// const { user, loading, error } = useUserData;
-	const user = localStorage.getItem("isVerified") === true;
 
+	const isVerified =
+		localStorage.getItem("isVerified") === "true" ||
+		localStorage.getItem("userId");
 	// Use this function for triggering signup dropdown
 	const TriggerSignUpPage = () => setIsDropdownOpen(true);
+	const handleContinue = () => {
+		// close both modal and dropdown when done
+		setIsDropdownOpen(false);
+		setIsAuthModalOpen(false);
+	};
 
 	useEffect(() => {
 		// Fetch course details based on ID
@@ -111,7 +120,7 @@ const CourseDetailPage = () => {
 						{course.title}
 					</h1>
 
-					{user ? (
+					{isVerified ? (
 						<Motion.button
 							onClick={() => setIsPaymentSidebarOpen(true)}
 							className="px-6 py-3 bg-accent-blue text-primary-white font-bold text-lg rounded-lg shadow-md
@@ -128,7 +137,8 @@ const CourseDetailPage = () => {
 							className="cursor-pointer flex gap-2 justify-center items-center px-6 py-3 bg-accent-blue text-white font-bold text-lg rounded-lg shadow-md
                hover:bg-[#3b82f6] transition-colors duration-300 transform hover:scale-105"
 						>
-							<ShoppingCart size={20} /> Purchase This Course Now
+							{/* <ShoppingCart size={20} /> */}
+							Purchase This Course Now
 						</button>
 					)}
 				</Motion.header>
@@ -292,14 +302,23 @@ const CourseDetailPage = () => {
 						exclusive features!
 					</p>
 
-					<Link to="/signup">
-						<button
-							className="gradient_bg_colors 
+					{/* <Link to="/signup"> */}
+					<button
+						onClick={() => setIsAuthModalOpen(true)}
+						className="gradient_bg_colors 
                    text-white text-lg font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300"
-						>
-							🎓 Sign Up Now
-						</button>
-					</Link>
+					>
+						🎓 Sign Up Now
+					</button>
+					{/* </Link> */}
+
+					{/* the sign up reusable modal  */}
+					<AuthModalWrapper
+						isOpen={isAuthModalOpen}
+						onClose={() => setIsAuthModalOpen(false)}
+						// this is to close the dropdown when the use click the continue button upon a successful registrtion
+						onFullSuccess={handleContinue} // 👈 custom prop passed down
+					/>
 				</div>
 			</HalfScreenDropdown>
 		</div>

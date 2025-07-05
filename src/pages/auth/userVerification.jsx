@@ -97,6 +97,8 @@ const UserVerificationPage = () => {
 			});
 
 			const data = await response.json();
+			localStorage.setItem("userId", data?.user?._id);
+			localStorage.setItem("isVerified", data?.user?.isVerified);
 
 			if (!response.ok) {
 				throw new Error(

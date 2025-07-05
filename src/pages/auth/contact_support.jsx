@@ -302,7 +302,7 @@ const Contact_Support_Page = () => {
 								>
 									Support Reference ID (Optional, 6 digits)
 								</label>
-								<div className="flex justify-center gap-2 md:gap-3">
+								<div className="flex justify-center gap-2 md:gap-3 mt-4">
 									{supportRefId.map((digit, index) => (
 										<input
 											key={index}
