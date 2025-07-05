@@ -14,7 +14,8 @@ import { motion as Motion } from "framer-motion";
 import { useLocation, Link } from "react-router-dom";
 
 // Base URL for potential API calls (e.g., to initiate security actions after OTP)
-const API_BASE_URL = "http://localhost:7075/api_url/users/task";
+const API_BASE_URL =
+	import.meta.env.VITE_BASE_URL || "http://localhost:7075/api_url/users/task";
 
 // Component for the Security Action page
 const Scam_Security_alert_Page = () => {

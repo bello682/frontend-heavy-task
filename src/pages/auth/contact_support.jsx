@@ -14,7 +14,8 @@ import {
 import { motion as Motion } from "framer-motion";
 
 // Base URL for the Contact Support API
-const API_BASE_URL = "http://localhost:7075/api_url/users/task/contact-support";
+const API_BASE_URL =
+	import.meta.env.VITE_BASE_URL || "http://localhost:7075/api_url/users/task";
 
 // Component for the Contact Support page
 const Contact_Support_Page = () => {
@@ -108,7 +109,7 @@ const Contact_Support_Page = () => {
 		try {
 			const fullSupportRefId = supportRefId.join(""); // Combine digits if present
 
-			const response = await fetch(API_BASE_URL, {
+			const response = await fetch(`${API_BASE_URL}/contact-support`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
