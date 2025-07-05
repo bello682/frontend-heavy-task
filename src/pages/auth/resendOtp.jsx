@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Home, CheckCircle, XCircle } from "lucide-react"; // Using lucide-react for icons
 import { motion as Motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 // Base URL for the Resend OTP API
 const BASE_URL =
@@ -8,6 +9,7 @@ const BASE_URL =
 
 // Component for the Resend OTP page
 const Resend_User_Otp = () => {
+	const navigate = useNavigate();
 	// State to hold the user's email (e.g., email or phone number)
 	const [email, setEmail] = useState("");
 
@@ -70,6 +72,10 @@ const Resend_User_Otp = () => {
 			);
 			// Optionally clear the input field after successful resend
 			setEmail("");
+
+			setTimeout(() => {
+				navigate("/otp-verification");
+			}, 2000);
 		} catch (err) {
 			console.error("Resend OTP error:", err);
 			setError(err.message || "An unknown error occurred during OTP resend.");

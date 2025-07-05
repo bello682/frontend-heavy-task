@@ -249,10 +249,7 @@ const UserVerificationPage = () => {
 								className="text-blue-300 hover:text-blue-100 font-semibold transition-colors duration-200"
 								onClick={(e) => {
 									e.preventDefault();
-									console.log(
-										"Resend OTP functionality would be triggered here."
-									);
-									// Implement resend OTP logic
+									navigate("/otp-resending");
 								}}
 							>
 								Resend Code

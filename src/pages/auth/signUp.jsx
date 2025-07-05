@@ -287,7 +287,6 @@ const SignUp = () => {
 			});
 
 			const data = await response.json(); // Parse response JSON
-			console.log(data);
 
 			localStorage.setItem("accessToken", data?.token);
 			localStorage.setItem("deviceId", data?.deviceId);
