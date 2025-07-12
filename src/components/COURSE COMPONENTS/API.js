@@ -68,6 +68,7 @@ export const courses = [
 		isMostPurchased: true,
 		isHotCourse: true,
 	},
+
 	{
 		id: generateId(),
 		title: "Cybersecurity Fundamentals",

@@ -72,7 +72,12 @@ const LoginPage = () => {
 				);
 			}
 
-			localStorage.setItem("accessToken", data?.token);
+			localStorage.setItem("accessToken", data?.accessToken);
+			localStorage.setItem("refreshToken", data?.refreshToken);
+			localStorage.setItem("deviceId", data?.deviceId);
+			localStorage.setItem("userId", data?.user?.id);
+			localStorage.setItem("userEmail", data?.user?.email);
+			localStorage.setItem("userRole", data?.user?.role);
 			localStorage.setItem(
 				"isVerified",
 				data?.userData_Spread?._doc?.isVerified

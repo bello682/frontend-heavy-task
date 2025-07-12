@@ -72,8 +72,14 @@ const SignUp = () => {
 
 			const data = await response.json(); // Parse response JSON
 
-			localStorage.setItem("accessToken", data?.token);
+			localStorage.setItem("accessToken", data?.accessToken);
+			localStorage.setItem("refreshToken", data?.refreshToken);
 			localStorage.setItem("deviceId", data?.deviceId);
+			localStorage.setItem("userId", data?.user?.id);
+			localStorage.setItem("userEmail", data?.user?.email);
+			localStorage.setItem("userRole", data?.user?.role);
+
+			console.log(data);
 
 			if (!response.ok) {
 				// If response is not OK (e.g., 4xx or 5xx status)

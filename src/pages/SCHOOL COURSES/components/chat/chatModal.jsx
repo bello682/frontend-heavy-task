@@ -1,66 +1,42 @@
-// src/components/Chat/ChatModal.jsx
-
 import React, { useState, useRef, useEffect } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import {
 	X,
 	Send,
-	User,
 	MessageSquare,
-	Info,
-} from "../../../../components/Icons/lucid-icons"; // Assuming these are exported
+} from "../../../../components/Icons/lucid-icons";
+import { sendMessage, getMessages } from "../chat/chatApi";
+import { getAuthToken } from "../../../../utils/authStorage";
+// import { getUserId } from "../../../../utils/authStorage";
 
-// Dummy chat messages for demonstration
-const dummyMessages = [
-	{
-		id: 1,
-		sender: "AI",
-		text: "Hello! How can I help you today?",
-		time: "10:00 AM",
-	},
-	{
-		id: 2,
-		sender: "User",
-		text: "I have a question about the AI & ML course.",
-		time: "10:01 AM",
-	},
-	{
-		id: 3,
-		sender: "AI",
-		text: "Certainly! What would you like to know about it?",
-		time: "10:02 AM",
-	},
-	{
-		id: 4,
-		sender: "AI",
-		text: "Please type your question below.",
-		time: "10:02 AM",
-	},
-];
+// 🔑 Replace with your actual Admin MongoDB _id
+const ADMIN_ID = "64fbb31c624b392188bfe123";
 
 const ChatModal = ({ isOpen, onClose }) => {
-	const [messages, setMessages] = useState(dummyMessages);
+	const [messages, setMessages] = useState([]);
 	const [newMessage, setNewMessage] = useState("");
 	const messagesEndRef = useRef(null);
 
-	// Scroll to the latest message
 	const scrollToBottom = () => {
 		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
 	};
 
 	useEffect(() => {
 		if (isOpen) {
-			scrollToBottom(); // Scroll to bottom when modal opens or messages update
+			scrollToBottom();
 		}
 	}, [messages, isOpen]);
 
-	// Handle sending a new message (dummy logic)
-	const handleSendMessage = (e) => {
+	// Send message handler
+	const handleSendMessage = async (e) => {
 		e.preventDefault();
 		if (newMessage.trim() === "") return;
 
+		const token = getAuthToken();
+		// const userId = getUserId();
+
 		const userMessage = {
-			id: messages.length + 1,
+			id: Date.now(),
 			sender: "User",
 			text: newMessage.trim(),
 			time: new Date().toLocaleTimeString([], {
@@ -69,31 +45,54 @@ const ChatModal = ({ isOpen, onClose }) => {
 			}),
 		};
 
-		setMessages((prevMessages) => [...prevMessages, userMessage]);
+		// Show user message instantly
+		setMessages((prev) => [...prev, userMessage]);
 		setNewMessage("");
 
-		// Simulate an AI response after a short delay
-		setTimeout(() => {
-			const aiResponse = {
-				id: messages.length + 2,
-				sender: "AI",
-				text: "Thank you for your message. An admin will get back to you shortly.",
-				time: new Date().toLocaleTimeString([], {
+		try {
+			await sendMessage(token, ADMIN_ID, newMessage);
+			// Optionally refresh chat after sending
+			fetchMessages();
+		} catch (error) {
+			console.error("Send failed:", error);
+		}
+	};
+
+	// Fetch message history
+	const fetchMessages = async () => {
+		try {
+			const token = getAuthToken();
+			const { data } = await getMessages(token, ADMIN_ID);
+
+			const formatted = data.messages.map((msg) => ({
+				id: msg._id,
+				sender: msg.senderModel === "Admin" ? "AI" : "User",
+				text: msg.text,
+				time: new Date(msg.createdAt).toLocaleTimeString([], {
 					hour: "2-digit",
 					minute: "2-digit",
 				}),
-			};
-			setMessages((prevMessages) => [...prevMessages, aiResponse]);
-		}, 1500);
+			}));
+
+			setMessages(formatted);
+		} catch (err) {
+			console.error("Fetch messages failed:", err);
+		}
 	};
 
-	// Variants for the modal sliding in/out
+	useEffect(() => {
+		if (isOpen) {
+			fetchMessages();
+		}
+	}, [isOpen]);
+
+	// Modal animation
 	const modalVariants = {
-		hidden: { opacity: 0, y: "100vh", x: "-50%", scale: 0.8 }, // Start bottom-center, scaled
+		hidden: { opacity: 0, y: "100vh", x: "-50%", scale: 0.8 },
 		visible: {
 			opacity: 1,
 			y: "0",
-			x: "-50%", // Keep centered horizontally
+			x: "-50%",
 			scale: 1,
 			transition: {
 				duration: 0.5,
@@ -104,7 +103,7 @@ const ChatModal = ({ isOpen, onClose }) => {
 		},
 		exit: {
 			opacity: 0,
-			y: "100vh", // Exit to bottom
+			y: "100vh",
 			x: "-50%",
 			scale: 0.8,
 			transition: { duration: 0.3 },
@@ -126,7 +125,7 @@ const ChatModal = ({ isOpen, onClose }) => {
 					initial="hidden"
 					animate="visible"
 					exit="exit"
-					onClick={onClose} // Close modal when clicking on overlay
+					onClick={onClose}
 				>
 					<Motion.div
 						className="bg-primary-white rounded-xl shadow-2xl w-full max-w-md h-[85vh] sm:h-[70vh] flex flex-col overflow-hidden relative"
@@ -134,8 +133,8 @@ const ChatModal = ({ isOpen, onClose }) => {
 						initial="hidden"
 						animate="visible"
 						exit="exit"
-						onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
-						style={{ left: "50%", transform: "translateX(-50%)" }} // Ensure horizontal centering
+						onClick={(e) => e.stopPropagation()}
+						style={{ left: "50%", transform: "translateX(-50%)" }}
 					>
 						{/* Chat Header */}
 						<div className="flex items-center justify-between p-4 border-b border-gray-light bg-accent-blue text-primary-white">
@@ -153,7 +152,7 @@ const ChatModal = ({ isOpen, onClose }) => {
 							</Motion.button>
 						</div>
 
-						{/* Chat Body - Messages */}
+						{/* Chat Body */}
 						<div className="flex-1 p-4 overflow-y-auto space-y-4 bg-gray-800">
 							{messages.map((msg) => (
 								<div
@@ -163,12 +162,11 @@ const ChatModal = ({ isOpen, onClose }) => {
 									}`}
 								>
 									<div
-										className={`p-3 rounded-lg max-w-[75%] shadow-sm
-                                                     ${
-																												msg.sender === "User"
-																													? "bg-accent-blue text-primary-white"
-																													: "bg-gray-900 text-gray-text"
-																											}`}
+										className={`p-3 rounded-lg max-w-[75%] shadow-sm ${
+											msg.sender === "User"
+												? "bg-accent-blue text-primary-white"
+												: "bg-gray-900 text-gray-text"
+										}`}
 									>
 										<p className="text-sm">{msg.text}</p>
 										<p
@@ -183,7 +181,7 @@ const ChatModal = ({ isOpen, onClose }) => {
 									</div>
 								</div>
 							))}
-							<div ref={messagesEndRef} /> {/* Scroll target */}
+							<div ref={messagesEndRef} />
 						</div>
 
 						{/* Chat Input */}

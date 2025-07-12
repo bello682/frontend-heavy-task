@@ -18,6 +18,14 @@ export default {
 				"gray-bg": "#f9fafb", // A very light gray for backgrounds
 				"gray-text": "#374151", // Dark gray for main text
 				"gray-light": "#e5e7eb", // Light gray for borders/dividers
+
+				// NEW COLORS FOR ADMIN PAGE
+				primary: "#000000", // Black for primary elements
+				secondary: "#FFFFFF", // White for secondary elements
+				textPrimary: "#FFFFFF", // White text on black background
+				textSecondary: "#000000", // Black text on white background
+				accentRed: "#EF4444", // Red for errors/warnings
+				accentGreen: "#22C55E", // Green for success
 			},
 		},
 	},
