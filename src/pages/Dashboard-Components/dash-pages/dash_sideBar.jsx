@@ -18,6 +18,7 @@ const navLinks = [
 	{ name: "Accounts", icon: Wallet, to: "/dashboard/accounts" },
 	{ name: "Cards", icon: CreditCard, to: "/dashboard/cards" },
 	{ name: "Settings", icon: Settings, to: "/dashboard/settings" },
+	{ name: "All-Course", icon: Settings, to: "/dashboard/all-courses" },
 	{
 		name: "Delete-Account",
 		icon: Trash,
@@ -74,7 +75,7 @@ const Dash_Sidebar = ({ isOpen, onClose }) => {
 				<div className="p-6 flex items-center justify-between ">
 					{" "}
 					{/* Removed lg:justify-center */}
-					<h2 className="text-2xl font-bold">Fintech App</h2>
+					<h2 className="text-2xl font-bold"> IU</h2>
 					{/* Close button - Always visible when sidebar is open */}
 					<Motion.button
 						onClick={onClose}

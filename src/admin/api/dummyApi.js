@@ -1,5 +1,6 @@
 // ADMIN
 
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { getAuthToken, getAdminId } from "./../../utils/authStorage";
 
@@ -327,4 +328,34 @@ export const deleteUser = async (userId) => {
 			message: error.response?.data?.message || "Failed to delete user",
 		};
 	}
+};
+
+export const useAdminData = () => {
+	const [admin, setDdmin] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		const token = getAuthToken();
+
+		const fetchAdmin = async () => {
+			try {
+				const response = await axios.get(`${BASE_URL}/admin/getAdmin`, {
+					headers: {
+						Authorization: `Bearer ${token}`,
+						"Content-Type": "application/json",
+					},
+				});
+				setDdmin(response.data);
+			} catch (err) {
+				setError(err.response?.data?.message || err.message);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchAdmin();
+	}, []);
+
+	return { admin, loading, error };
 };

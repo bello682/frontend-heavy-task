@@ -58,7 +58,7 @@ const CourseCard = ({ course, itemVariants }) => {
 					{/* mt-auto pushes button to bottom */}
 					<Motion.button
 						className="w-full bg-primary-black text-primary-white py-3 rounded-lg font-semibold flex items-center justify-center space-x-2
-                                   hover:bg-gray-800 transition-colors duration-200 shadow-md"
+                                   hover:bg-gray-800 hover:text-white transition-colors duration-200 shadow-md"
 						whileHover={{ scale: 1.02 }}
 						whileTap={{ scale: 0.98 }}
 					>

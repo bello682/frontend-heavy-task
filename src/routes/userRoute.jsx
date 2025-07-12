@@ -24,6 +24,9 @@ import Reset_Password from "../pages/auth/resetPassword";
 import Scam_Security_alert_Page from "../pages/auth/ScamSecurity_alert";
 import Contact_Support_Page from "../pages/auth/contact_support";
 import { UserProtectedRoute } from "../utils/protectedRoute";
+import UserCourseDetailPageDashboard from "../pages/Dashboard-Components/dash-pages/userCourseDisplayDashboard";
+import UserSettings from "../pages/Dashboard-Components/dash-pages/userSettings";
+import UserAccountPage from "../pages/Dashboard-Components/dash-pages/userAccountPage";
 
 const UserAppRoutes = () => {
 	const location = useLocation();
@@ -74,9 +77,21 @@ const UserAppRoutes = () => {
 							path="deactivating-account"
 							element={<Deactivate_User_Account />}
 						/>
-						<Route path="cards" element={<h1>Cards Page</h1>} />
-						<Route path="accounts" element={<h1>Accounts Page</h1>} />
-						<Route path="settings" element={<h1>Settings Page</h1>} />
+						<Route
+							path="all-courses"
+							element={<UserCourseDetailPageDashboard />}
+						/>
+						<Route
+							path="cards"
+							element={
+								<h1 className="flex justify-center items-center m-auto text-3xl">
+									Cards Page
+								</h1>
+							}
+						/>
+						<Route path="accounts" element={<UserAccountPage />} />
+						<Route path="settings" element={<UserSettings />} />
+						<Route path="all-our-courses" element={<CoursesAllExport />} />
 					</Route>
 				</Route>
 

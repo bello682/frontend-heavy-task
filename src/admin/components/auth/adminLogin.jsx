@@ -44,7 +44,6 @@ const Admin_Login = () => {
 				localStorage.setItem("refreshToken", response.refreshToken);
 				localStorage.setItem("adminId", response.admin?._id);
 				localStorage.setItem("userRole", response.admin?.role);
-				console.log(response);
 				setTimeout(() => {
 					navigate("/admin");
 				}, 2000);

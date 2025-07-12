@@ -620,6 +620,7 @@
 // export default Dash_own_details;
 
 // src/components/user-dashboard/UserDashboardHome.jsx
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -711,96 +712,137 @@ const UserDashboardHome = () => {
 	}
 
 	// Simulate "real-time" updates for dynamic elements
+	// useEffect(() => {
+	// 	const interval = setInterval(() => {
+	// 		setUserData((prevData) => {
+	// 			// Simulate only if user hasn't taken any actions yet
+	// 			const isNew = prevData.coursesEnrolled === 0;
+
+	// 			const newCoursesEnrolled =
+	// 				isNew && Math.random() > 0.8 ? 1 : prevData.coursesEnrolled;
+	// 			const newCoursesCompleted =
+	// 				isNew && Math.random() > 0.9 ? 1 : prevData.coursesCompleted;
+	// 			const newAverageGrade =
+	// 				isNew && Math.random() > 0.7
+	// 					? 75 + Math.floor(Math.random() * 10)
+	// 					: prevData.averageGrade;
+
+	// 			const newEnrolledCourses =
+	// 				isNew && Math.random() > 0.7
+	// 					? [
+	// 							{
+	// 								id: "course-001",
+	// 								title: "Getting Started with InnovationU",
+	// 								progress: 0,
+	// 								instructor: "University Staff",
+	// 							},
+	// 					  ]
+	// 					: prevData.enrolledCourses.map((course) => ({
+	// 							...course,
+	// 							progress: Math.min(
+	// 								100,
+	// 								course.progress + (Math.random() > 0.7 ? 5 : 0)
+	// 							),
+	// 					  }));
+
+	// 			const newUpcomingAssignments =
+	// 				isNew && Math.random() > 0.8
+	// 					? [
+	// 							{
+	// 								id: "assign-001",
+	// 								title: "Welcome Assignment",
+	// 								course: "Getting Started with InnovationU",
+	// 								dueDate: "2025-08-01",
+	// 								status: "pending",
+	// 							},
+	// 					  ]
+	// 					: prevData.upcomingAssignments;
+
+	// 			const newRecentGrades =
+	// 				isNew && Math.random() > 0.9
+	// 					? [
+	// 							{
+	// 								id: "grade-001",
+	// 								course: "Getting Started with InnovationU",
+	// 								assignment: "Welcome Quiz",
+	// 								grade: 85,
+	// 								date: new Date().toLocaleDateString(),
+	// 							},
+	// 					  ]
+	// 					: prevData.recentGrades;
+
+	// 			const updatedAnnouncements =
+	// 				Math.random() > 0.95
+	// 					? [
+	// 							{
+	// 								id: Date.now(),
+	// 								title: `New Tip: Explore your dashboard to unlock your first badge!`,
+	// 								date: new Date().toLocaleDateString(),
+	// 							},
+	// 							...prevData.announcements.slice(0, 4),
+	// 					  ]
+	// 					: prevData.announcements;
+
+	// 			return {
+	// 				...prevData,
+	// 				coursesEnrolled: newCoursesEnrolled,
+	// 				coursesCompleted: newCoursesCompleted,
+	// 				averageGrade: newAverageGrade,
+	// 				enrolledCourses: newEnrolledCourses,
+	// 				upcomingAssignments: newUpcomingAssignments,
+	// 				recentGrades: newRecentGrades,
+	// 				announcements: updatedAnnouncements,
+	// 			};
+	// 		});
+	// 	}, 15000); // Update every 15 seconds
+
+	// 	return () => clearInterval(interval);
+	// }, []);
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setUserData((prevData) => {
-				// Simulate new data coming in after some time, or based on user actions
-				const newCoursesEnrolled =
-					prevData.coursesEnrolled === 0 && Math.random() > 0.8
-						? 1
-						: prevData.coursesEnrolled;
-				const newCoursesCompleted =
-					prevData.coursesCompleted === 0 && Math.random() > 0.9
-						? 1
-						: prevData.coursesCompleted;
-				const newAverageGrade =
-					prevData.averageGrade === 0 && Math.random() > 0.7
-						? 75 + Math.floor(Math.random() * 15)
-						: prevData.averageGrade;
+				// Ensure dashboard stays clean until backend is integrated
+				const isNewUser =
+					prevData.coursesEnrolled === 0 &&
+					prevData.coursesCompleted === 0 &&
+					prevData.averageGrade === 0 &&
+					prevData.enrolledCourses.length === 0 &&
+					prevData.recentGrades.length === 0 &&
+					prevData.upcomingAssignments.length === 0;
 
-				let newEnrolledCourses = [...prevData.enrolledCourses];
-				if (newEnrolledCourses.length === 0 && Math.random() > 0.7) {
-					newEnrolledCourses = [
-						{
-							id: "new001",
-							title: "Your First Enrolled Course",
-							progress: 5,
-							instructor: "University Staff",
-						},
-					];
-				} else {
-					newEnrolledCourses = prevData.enrolledCourses.map((course) => ({
-						...course,
-						progress: Math.min(
-							100,
-							course.progress + (Math.random() > 0.7 ? 1 : 0)
-						),
-					}));
+				// STOP injecting fake data for new users – dashboard must stay zeroed
+				if (isNewUser) {
+					return prevData;
 				}
 
-				let newUpcomingAssignments = [...prevData.upcomingAssignments];
-				if (newUpcomingAssignments.length === 0 && Math.random() > 0.8) {
-					newUpcomingAssignments = [
-						{
-							id: 4,
-							title: "Your First Assignment",
-							course: "Your First Enrolled Course",
-							dueDate: "2025-07-28",
-							status: "pending",
-						},
-					];
-				}
+				// Optional: allow light animation or updates for real users only
+				const newEnrolledCourses = prevData.enrolledCourses.map((course) => ({
+					...course,
+					progress: Math.min(
+						100,
+						course.progress + (Math.random() > 0.7 ? 1 : 0)
+					),
+				}));
 
-				let newRecentGrades = [...prevData.recentGrades];
-				if (newRecentGrades.length === 0 && Math.random() > 0.9) {
-					newRecentGrades = [
-						{
-							id: 3,
-							course: "Your First Enrolled Course",
-							assignment: "First Quiz",
-							grade: 80,
-							date: new Date().toLocaleDateString(),
-						},
-					];
-				}
-
-				// Simulate a new announcement occasionally
 				const updatedAnnouncements =
-					Math.random() > 0.9
+					Math.random() > 0.95
 						? [
 								{
 									id: Date.now(),
-									title: `New Event: Workshop on ${
-										["AI", "Web", "Data"][Math.floor(Math.random() * 3)]
-									} Tools`,
+									title: `New Tip: Explore your dashboard to unlock your first badge!`,
 									date: new Date().toLocaleDateString(),
 								},
-								...prevData.announcements.slice(0, 2),
+								...prevData.announcements.slice(0, 4),
 						  ]
 						: prevData.announcements;
 
 				return {
 					...prevData,
-					coursesEnrolled: newCoursesEnrolled,
-					coursesCompleted: newCoursesCompleted,
-					averageGrade: newAverageGrade,
 					enrolledCourses: newEnrolledCourses,
-					upcomingAssignments: newUpcomingAssignments,
-					recentGrades: newRecentGrades,
 					announcements: updatedAnnouncements,
 				};
 			});
-		}, 15000); // Update every 15 seconds
+		}, 15000); // update every 15 seconds
 
 		return () => clearInterval(interval);
 	}, []);
@@ -816,7 +858,7 @@ const UserDashboardHome = () => {
 
 		// Conditional display for value
 		const displayValue =
-			value === 0 && unit !== "%" ? "N/A" : value.toFixed(unit === "%" ? 1 : 0);
+			value === 0 && unit !== "%" ? "0" : value.toFixed(unit === "%" ? 1 : 0);
 		const displayUnit = value === 0 && unit !== "%" ? "" : unit;
 
 		return (
@@ -955,7 +997,7 @@ const UserDashboardHome = () => {
 							>
 								<p className="mb-3">You haven't enrolled in any courses yet.</p>
 								<Link
-									to="/user/all-courses"
+									to="/dashboard/all-courses"
 									className={`inline-flex items-center text-sm font-semibold ${accentColors.blue} hover:underline`}
 								>
 									<FaPlusCircle className="mr-2" /> Browse All Courses to Get
@@ -1081,7 +1123,10 @@ const UserDashboardHome = () => {
 										<FaCalendarAlt className="mr-2" /> {announcement.date}
 									</p>
 									<Link
-										to={`/user/announcements/${announcement.id}`}
+										// to={`/user/announcements/${announcement.id}`}
+										onClick={() => {
+											alert("Please bare with us for now ");
+										}}
 										className={`mt-2 inline-flex items-center text-sm font-semibold ${accentColors.blue} hover:underline`}
 									>
 										Read More <FaArrowRight className="ml-2 text-xs" />
@@ -1109,7 +1154,7 @@ const UserDashboardHome = () => {
 				</h3>
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 					<Link
-						to="/user/all-courses"
+						to="/dashboard/all-courses"
 						className={`flex flex-col items-center justify-center p-4 rounded-lg border border-gray-700 hover:bg-gray-800 transition-colors duration-200 group`}
 					>
 						<FaBookOpen
@@ -1120,7 +1165,10 @@ const UserDashboardHome = () => {
 						</span>
 					</Link>
 					<Link
-						to="/user/grades"
+						// to="/user/grades"
+						onClick={() => {
+							alert("Please bare with us for now ");
+						}}
 						className={`flex flex-col items-center justify-center p-4 rounded-lg border border-gray-700 hover:bg-gray-800 transition-colors duration-200 group`}
 					>
 						<FaChartLine
@@ -1129,7 +1177,10 @@ const UserDashboardHome = () => {
 						<span className="font-semibold text-center">View My Grades</span>
 					</Link>
 					<Link
-						to="/user/profile"
+						// to="/user/profile"
+						onClick={() => {
+							alert("Please bare with us for now ");
+						}}
 						className={`flex flex-col items-center justify-center p-4 rounded-lg border border-gray-700 hover:bg-gray-800 transition-colors duration-200 group`}
 					>
 						<FaUserGraduate
@@ -1138,7 +1189,10 @@ const UserDashboardHome = () => {
 						<span className="font-semibold text-center">Edit My Profile</span>
 					</Link>
 					<Link
-						to="/user/support"
+						// to="/user/support"
+						onClick={() => {
+							alert("Please bare with us for now ");
+						}}
 						className={`flex flex-col items-center justify-center p-4 rounded-lg border border-gray-700 hover:bg-gray-800 transition-colors duration-200 group`}
 					>
 						<FaEnvelopeOpenText

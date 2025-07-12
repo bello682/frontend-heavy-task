@@ -11,8 +11,10 @@ import {
 	FaArrowDown,
 } from "react-icons/fa"; // Importing various icons
 import { Link } from "react-router-dom";
+import { useAdminData } from "../../api/dummyApi";
 
 const DashboardHome = () => {
+	const { admin, loading, error } = useAdminData();
 	// Define accent colors directly in the component
 	const accentColors = {
 		green: "text-[#22C55E]", // Success/Positive
@@ -25,70 +27,69 @@ const DashboardHome = () => {
 
 	// Dummy "real-time" data with state for potential updates
 	const [stats, setStats] = useState({
-		totalCourses: 25,
-		totalStudents: 1200,
-		pendingEnrollments: 15,
-		newRegistrationsToday: 8,
-		courseCompletionRate: 72, // Percentage
-		revenueTrend: 5, // % change
+		totalCourses: 0,
+		totalStudents: 0,
+		pendingEnrollments: 0,
+		newRegistrationsToday: 0,
+		courseCompletionRate: 0, // percentage
+		revenueTrend: 0, // change %
 	});
 
-	const [recentActivities, setRecentActivities] = useState([
+	// const [recentActivities, setRecentActivities] = useState([
+	const [recentActivities] = useState([
 		{
 			id: 1,
-			type: "enrollment",
-			description: "John Doe enrolled in 'Intro to AI'",
-			time: "2 mins ago",
-			icon: <FaGraduationCap className={accentColors.blue} />,
-		},
-		{
-			id: 2,
-			type: "course_update",
-			description: "'Web Dev Basics' course updated",
-			time: "1 hour ago",
-			icon: <FaBook className={accentColors.green} />,
-		},
-		{
-			id: 3,
-			type: "new_admin",
-			description: "New admin 'Jane Smith' joined",
-			time: "3 hours ago",
-			icon: <FaUsers className={accentColors.blue} />,
-		},
-		{
-			id: 4,
-			type: "inquiry",
-			description: "New support inquiry received",
-			time: "Yesterday",
-			icon: <FaBell className={accentColors.red} />,
+			type: "system",
+			description: "Welcome to your admin dashboard!",
+			time: "Just now",
+			icon: <FaClipboardList className={accentColors.lightGrayText} />,
 		},
 	]);
 
 	// Simulate real-time updates (optional, for demonstration)
+	// useEffect(() => {
+	// 	const interval = setInterval(() => {
+	// 		setStats((prevStats) => ({
+	// 			...prevStats,
+	// 			totalStudents: prevStats.totalStudents + Math.floor(Math.random() * 5), // Simulate new students
+	// 			pendingEnrollments: Math.max(
+	// 				0,
+	// 				prevStats.pendingEnrollments + (Math.random() > 0.5 ? 1 : -1)
+	// 			), // Simulate changes
+	// 		}));
+	// 		// Add new dummy activity
+	// 		const newActivity = {
+	// 			id: Date.now(),
+	// 			type: "activity",
+	// 			description: `Random activity ${Math.floor(
+	// 				Math.random() * 100
+	// 			)} occurred`,
+	// 			time: "Just now",
+	// 			icon: <FaClipboardList className={accentColors.lightGrayText} />,
+	// 		};
+	// 		setRecentActivities((prev) => [newActivity, ...prev.slice(0, 4)]); // Keep last 5 activities
+	// 	}, 10000); // Update every 10 seconds
+
+	// 	return () => clearInterval(interval); // Cleanup
+	// }, []);
+
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setStats((prevStats) => ({
 				...prevStats,
-				totalStudents: prevStats.totalStudents + Math.floor(Math.random() * 5), // Simulate new students
+				totalStudents: prevStats.totalStudents + Math.floor(Math.random() * 2),
 				pendingEnrollments: Math.max(
 					0,
 					prevStats.pendingEnrollments + (Math.random() > 0.5 ? 1 : -1)
-				), // Simulate changes
+				),
+				courseCompletionRate: Math.min(
+					100,
+					prevStats.courseCompletionRate + 0.5
+				),
 			}));
-			// Add new dummy activity
-			const newActivity = {
-				id: Date.now(),
-				type: "activity",
-				description: `Random activity ${Math.floor(
-					Math.random() * 100
-				)} occurred`,
-				time: "Just now",
-				icon: <FaClipboardList className={accentColors.lightGrayText} />,
-			};
-			setRecentActivities((prev) => [newActivity, ...prev.slice(0, 4)]); // Keep last 5 activities
-		}, 10000); // Update every 10 seconds
+		}, 10000); // update every 10 seconds
 
-		return () => clearInterval(interval); // Cleanup
+		return () => clearInterval(interval);
 	}, []);
 
 	const StatCard = ({ title, value, icon, trend, unit = "" }) => {
@@ -99,6 +100,16 @@ const DashboardHome = () => {
 				? accentColors.red
 				: accentColors.lightGrayText;
 		const TrendIcon = trend > 0 ? FaArrowUp : FaArrowDown;
+
+		if (error) {
+			return (
+				<>
+					<div className="flex justify-center items-center m-auto">
+						{`OOP! SORRY ${error} `}
+					</div>
+				</>
+			);
+		}
 
 		return (
 			<div
@@ -146,9 +157,20 @@ const DashboardHome = () => {
 		<div className="p-4 md:p-8 bg-primary min-h-full">
 			{/* Welcome Section */}
 			<div className="bg-secondary text-textSecondary p-6 md:p-8 rounded-xl shadow-lg mb-8 animate-fade-in-down">
-				<h2 className="text-3xl md:text-4xl font-extrabold mb-2">
-					Welcome, Admin!
-				</h2>
+				{loading ? (
+					<h2 className="text-3xl md:text-4xl font-extrabold mb-2">
+						Loading...
+					</h2>
+				) : error ? (
+					<h2 className="text-3xl md:text-4xl font-extrabold mb-2 text-red-500">
+						Failed to load admin
+					</h2>
+				) : (
+					<h2 className="text-3xl md:text-4xl font-extrabold mb-2">
+						Welcome, {admin?.data?.admin?.name || "Admin"}!
+					</h2>
+				)}
+
 				<p className={`text-lg md:text-xl ${accentColors.lightGrayText}`}>
 					Overview of Innovation University Academy.
 				</p>
