@@ -1,7 +1,7 @@
 // src/components/Layout/MainLayout.jsx
 
 import React from "react";
-import FloatingChatIcon from "./components/chat/floatingChatIcon";
+// import FloatingChatIcon from "./components/chat/floatingChatIcon";
 
 const MainCourseLayout = ({ children }) => {
 	return (
@@ -10,7 +10,7 @@ const MainCourseLayout = ({ children }) => {
 			{children}
 
 			{/* Floating Chat Icon (will be implemented in a later step) */}
-			<FloatingChatIcon />
+			{/* <FloatingChatIcon /> */}
 		</div>
 	);
 };

@@ -8,6 +8,8 @@ import ReasearchSection from "./web/reaserchSection";
 import ContactSection from "./web/contactSection";
 // import FooterSection from "./web/footerSection";
 import NewsSection from "./web/newsSectiobn";
+// import FloatingChatIcon from "../SCHOOL COURSES/components/chat/floatingChatIcon";
+// import { shouldShowChatIcon } from "./../../utils/showIconChat";
 
 const DepartmentLandingPage = () => {
 	return (
@@ -26,6 +28,8 @@ const DepartmentLandingPage = () => {
 			<NewsSection />
 			{/* Contact Section */}
 			<ContactSection />
+			{/*  */}
+			{/* <FloatingChatIcon /> */}
 		</div>
 	);
 };

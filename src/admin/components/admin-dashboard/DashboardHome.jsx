@@ -46,33 +46,6 @@ const DashboardHome = () => {
 		},
 	]);
 
-	// Simulate real-time updates (optional, for demonstration)
-	// useEffect(() => {
-	// 	const interval = setInterval(() => {
-	// 		setStats((prevStats) => ({
-	// 			...prevStats,
-	// 			totalStudents: prevStats.totalStudents + Math.floor(Math.random() * 5), // Simulate new students
-	// 			pendingEnrollments: Math.max(
-	// 				0,
-	// 				prevStats.pendingEnrollments + (Math.random() > 0.5 ? 1 : -1)
-	// 			), // Simulate changes
-	// 		}));
-	// 		// Add new dummy activity
-	// 		const newActivity = {
-	// 			id: Date.now(),
-	// 			type: "activity",
-	// 			description: `Random activity ${Math.floor(
-	// 				Math.random() * 100
-	// 			)} occurred`,
-	// 			time: "Just now",
-	// 			icon: <FaClipboardList className={accentColors.lightGrayText} />,
-	// 		};
-	// 		setRecentActivities((prev) => [newActivity, ...prev.slice(0, 4)]); // Keep last 5 activities
-	// 	}, 10000); // Update every 10 seconds
-
-	// 	return () => clearInterval(interval); // Cleanup
-	// }, []);
-
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setStats((prevStats) => ({

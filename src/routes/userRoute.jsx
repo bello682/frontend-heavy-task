@@ -91,7 +91,7 @@ const UserAppRoutes = () => {
 						/>
 						<Route path="accounts" element={<UserAccountPage />} />
 						<Route path="settings" element={<UserSettings />} />
-						<Route path="all-our-courses" element={<CoursesAllExport />} />
+						<Route path="all-our-uni-courses" element={<CoursesAllExport />} />
 					</Route>
 				</Route>
 

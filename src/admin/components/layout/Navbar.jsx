@@ -1,4 +1,5 @@
 // src/components/layout/Navbar.jsx
+import { Bell } from "lucide-react";
 import React from "react";
 import { FaBars, FaSignOutAlt } from "react-icons/fa";
 
@@ -14,6 +15,7 @@ const Navbar = ({ toggleSidebar }) => {
 					<FaBars />
 				</button>
 				{/* <h1 className="text-xl font-bold">Innovation University Academy</h1> */}
+
 				{/* Logout button moved here to be always accessible */}
 				<button
 					onClick={() => {

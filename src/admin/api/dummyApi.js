@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { getAuthToken, getAdminId } from "./../../utils/authStorage";
+import { getAuthToken, getAdminId } from "../../utils/authStorage";
 
 const BASE_URL =
 	import.meta.env.VITE_BASE_URL || "http://localhost:7075/api_url/users/task";
@@ -358,4 +358,66 @@ export const useAdminData = () => {
 	}, []);
 
 	return { admin, loading, error };
+};
+
+// src/admin/api/dummyApi.js (Modified to use Local Storage)
+
+export const useAdminPublicId = () => {
+	// Initialize state from local storage first
+	const [adminData, setAdminData] = useState(() => {
+		try {
+			const storedAdmin = localStorage.getItem("publicAdminInfo");
+			return storedAdmin ? JSON.parse(storedAdmin) : null;
+		} catch (error) {
+			console.error(
+				"Failed to parse publicAdminInfo from local storage:",
+				error
+			);
+			return null;
+		}
+	});
+
+	const [loading, setLoading] = useState(!adminData); // If data already exists, not loading initially
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		// Only fetch if adminData is not already available
+		if (adminData) {
+			setLoading(false); // Already have data, so not loading
+			return;
+		}
+
+		const fetchAdminPublicId = async () => {
+			setLoading(true); // Start loading if fetching
+			setError(null); // Clear previous errors
+			try {
+				const res = await axios.get(`${BASE_URL}/admin/public-admin-id`, {
+					headers: { "Content-Type": "application/json" },
+				});
+				const fetchedAdmin = res.data.admin; // Expecting a single admin object now
+
+				if (fetchedAdmin && fetchedAdmin.id) {
+					setAdminData(fetchedAdmin);
+					localStorage.setItem("publicAdminInfo", JSON.stringify(fetchedAdmin));
+				} else {
+					// Handle case where backend says success but returns no admin (e.g., admin: null)
+					setError("No active chat admin configured.");
+					setAdminData(null); // Ensure adminData is null if no admin found
+				}
+			} catch (err) {
+				console.error("Error fetching public admin:", err);
+				setError(
+					err.response?.data?.message ||
+						"Failed to retrieve public admin details."
+				);
+				setAdminData(null); // Ensure adminData is null on error
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchAdminPublicId();
+	}, [adminData]); // Re-run only if adminData changes (e.g., from null to data) or needs fetching
+
+	return { admin: adminData, loading, error };
 };

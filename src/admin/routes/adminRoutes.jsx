@@ -20,6 +20,7 @@ import AminDeleteCoursePage from "./../components/admin-dashboard/deleteCoursePa
 import UpdateCourse from "../components/admin-dashboard/updateCourse";
 import AdminDeleteUserPage from "../components/admin-dashboard/deleteUserPage";
 import ManageUsers from "../components/admin-dashboard/manageUsers";
+import AdminChatPage from "../components/chat/AdminChatPage";
 
 const AdminAppRoutes = () => {
 	return (
@@ -49,6 +50,7 @@ const AdminAppRoutes = () => {
 						<Route path="manage-users" element={<ManageUsers />} />
 						<Route path="delete-user" element={<AdminDeleteUserPage />} />
 						<Route path="analytics" element={<AnalyticsPage />} />
+						<Route path="chat-us" element={<AdminChatPage />} />
 					</Route>
 				</Route>
 

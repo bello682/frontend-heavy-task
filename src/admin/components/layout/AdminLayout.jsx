@@ -4,6 +4,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import { FaSignOutAlt } from "react-icons/fa";
+import { Bell } from "lucide-react";
 
 const AdminLayout = () => {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -44,19 +45,25 @@ const AdminLayout = () => {
 						<h1 className="text-2xl font-bold">
 							Innovation University Academy
 						</h1>
-						{/* Add user info/logout button here for larger screens */}
-						<button
-							onClick={() => {
-								localStorage.removeItem("accessToken");
-								localStorage.removeItem("refreshToken");
-								localStorage.removeItem("adminId");
-								localStorage.removeItem("userRole");
-								window.location.href = "/admin-login";
-							}}
-							className="flex items-center text-accentRed hover:text-red-700 transition-colors duration-200"
-						>
-							<FaSignOutAlt className="mr-2" /> Logout
-						</button>
+
+						<div className="flex gap-3">
+							{/* Add user info/logout button here for larger screens */}
+							<button
+								onClick={() => {
+									localStorage.removeItem("accessToken");
+									localStorage.removeItem("refreshToken");
+									localStorage.removeItem("adminId");
+									localStorage.removeItem("userRole");
+									window.location.href = "/admin-login";
+								}}
+								className="flex items-center text-accentRed hover:text-red-700 transition-colors duration-200"
+							>
+								<FaSignOutAlt className="mr-2" /> Logout
+							</button>
+							<div className="">
+								<Bell />
+							</div>
+						</div>
 					</header>
 
 					<main className="flex-1 overflow-y-auto p-4 md:p-6 bg-primary">

@@ -21,6 +21,8 @@ export const logoutUser = async (navigate) => {
 		localStorage.removeItem("userEmail");
 		localStorage.removeItem("refreshToken");
 		localStorage.removeItem("deviceId");
+		localStorage.removeItem("deviceId");
+		localStorage.removeItem("userName");
 		// localStorage.removeItem("isVerified");
 
 		navigate("/login");

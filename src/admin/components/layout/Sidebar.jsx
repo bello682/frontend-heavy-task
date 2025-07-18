@@ -10,8 +10,8 @@ import {
 	FaSignOutAlt,
 	FaBookOpen,
 	FaChartLine,
-	FaBeer,
 } from "react-icons/fa";
+import { MdMessage } from "react-icons/md";
 import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
 import { Home } from "lucide-react";
 
@@ -25,6 +25,7 @@ const sidebarLinks = [
 	{ name: "Delete User", path: "/admin/delete-user", icon: FaTrashAlt }, // Specific for delete
 	{ name: "Analytics", path: "/admin/analytics", icon: FaChartLine },
 	{ name: "Settings", path: "/admin/settings", icon: FaCog },
+	{ name: "Message", path: "/admin/chat-us", icon: MdMessage },
 ];
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {

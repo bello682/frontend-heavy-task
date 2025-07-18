@@ -74,8 +74,9 @@ const LoginPage = () => {
 
 			localStorage.setItem("accessToken", data?.accessToken);
 			localStorage.setItem("refreshToken", data?.refreshToken);
-			localStorage.setItem("deviceId", data?.deviceId);
+			localStorage.setItem("deviceId", data?.userData_Spread?._doc?.deviceId);
 			localStorage.setItem("userId", data?.user?.id);
+			localStorage.setItem("userName", data?.user?.fullName);
 			localStorage.setItem("userEmail", data?.user?.email);
 			localStorage.setItem("userRole", data?.user?.role);
 			localStorage.setItem(
