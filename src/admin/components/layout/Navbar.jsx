@@ -2,8 +2,11 @@
 import { Bell } from "lucide-react";
 import React from "react";
 import { FaBars, FaSignOutAlt } from "react-icons/fa";
+import { logoutAdmin } from "../../api/dummyApi";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ toggleSidebar }) => {
+	const navigate = useNavigate();
 	return (
 		<>
 			{/*fixed*/}
@@ -23,7 +26,7 @@ const Navbar = ({ toggleSidebar }) => {
 						localStorage.removeItem("refreshToken");
 						localStorage.removeItem("adminId");
 						localStorage.removeItem("userRole"); // Ensure this is cleared for admin logout
-						window.location.href = "/admin-login"; // Redirect to admin login
+						logoutAdmin(navigate); // Redirect to admin login
 					}}
 					className="relative flex items-center justify-center text-accentRed hover:text-red-700 transition-colors duration-200 p-2 rounded-full hover:bg-gray-200 group"
 				>

@@ -1,6 +1,6 @@
 // src/components/layout/Sidebar.jsx
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
 	FaTachometerAlt,
 	FaCog,
@@ -14,6 +14,7 @@ import {
 import { MdMessage } from "react-icons/md";
 import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
 import { Home } from "lucide-react";
+import { logoutAdmin } from "../../api/dummyApi";
 
 // Array of sidebar links
 const sidebarLinks = [
@@ -30,6 +31,7 @@ const sidebarLinks = [
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	const handleLinkClick = () => {
 		// Hide sidebar when a link is clicked
@@ -85,7 +87,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 								localStorage.removeItem("userRole"); // Ensure this is cleared for admin logout
 								// localStorage.removeItem("isVerified");
 								toggleSidebar(); // Hide sidebar on logout
-								window.location.href = "/admin-login"; // Redirect to admin login
+								logoutAdmin(navigate);
 							}}
 							className="flex items-center w-full text-left py-3 px-6 text-lg text-accentRed hover:bg-gray-700 transition-colors duration-200"
 						>

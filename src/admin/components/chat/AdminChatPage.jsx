@@ -771,7 +771,7 @@ const AdminChatPage = () => {
 		if (authToken && adminId && !socket.connected) {
 			socket.connect();
 			socket.emit("join", { userId: adminId, role: "Admin" });
-			console.log(`Socket joined room: Admin-${adminId}`);
+			// console.log(`Socket joined room: Admin-${adminId}`);
 		}
 		socket.on("receiveMessage", handleReceiveMessage);
 		return () => {

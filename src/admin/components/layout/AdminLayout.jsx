@@ -1,12 +1,14 @@
 // src/components/layout/AdminLayout.jsx
 import React, { useState } from "react";
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import { FaSignOutAlt } from "react-icons/fa";
 import { Bell } from "lucide-react";
+import { logoutAdmin } from "../../api/dummyApi";
 
 const AdminLayout = () => {
+	const navigate = useNavigate();
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
 	const toggleSidebar = () => {
@@ -50,11 +52,7 @@ const AdminLayout = () => {
 							{/* Add user info/logout button here for larger screens */}
 							<button
 								onClick={() => {
-									localStorage.removeItem("accessToken");
-									localStorage.removeItem("refreshToken");
-									localStorage.removeItem("adminId");
-									localStorage.removeItem("userRole");
-									window.location.href = "/admin-login";
+									logoutAdmin(navigate);
 								}}
 								className="flex items-center text-accentRed hover:text-red-700 transition-colors duration-200"
 							>

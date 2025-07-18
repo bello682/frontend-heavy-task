@@ -16,7 +16,6 @@ export const adminRegistration = async (userData) => {
 		localStorage.setItem("userId", res?.data?.user?.id);
 		localStorage.setItem("userEmail", res?.data?.user?.email);
 		localStorage.setItem("userRole", res?.data?.user?.role);
-		console.log("Admin resgistration", res);
 
 		return res.data; // expected: { success: true/false, message: "", ... }
 	} catch (error) {
@@ -420,4 +419,28 @@ export const useAdminPublicId = () => {
 	}, [adminData]); // Re-run only if adminData changes (e.g., from null to data) or needs fetching
 
 	return { admin: adminData, loading, error };
+};
+
+export const logoutAdmin = async (navigate) => {
+	try {
+		const token = localStorage.getItem("accessToken");
+
+		await fetch(`${BASE_URL}/admin/logout`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		});
+
+		localStorage.removeItem("accessToken");
+		localStorage.removeItem("refreshToken");
+		localStorage.removeItem("adminId");
+		localStorage.removeItem("userRole");
+		// localStorage.removeItem("isVerified");
+
+		navigate("/admin-login");
+	} catch (err) {
+		console.error("Logout failed:", err);
+	}
 };

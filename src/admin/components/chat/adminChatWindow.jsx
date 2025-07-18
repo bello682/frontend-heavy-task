@@ -46,6 +46,8 @@ const AdminChatWindow = ({
 		}
 	};
 
+	// console.log(selectedUser);
+
 	if (!selectedUser) {
 		return (
 			<div

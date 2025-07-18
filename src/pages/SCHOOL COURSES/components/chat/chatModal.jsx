@@ -345,6 +345,7 @@ const ChatModal = ({ isOpen, onClose }) => {
 
 	const ADMIN_ID = admin?.id;
 	const ADMIN_NAME = admin?.name || "Support";
+	const ADMIN_STATUS = admin?.status;
 	// const ADMIN_EMAIL = admin?.email; // Not used directly in UI formatting, so commented out for brevity
 
 	const scrollToBottom = () => {
@@ -597,7 +598,21 @@ const ChatModal = ({ isOpen, onClose }) => {
 							<div className="flex items-center space-x-2">
 								<MessageSquare size={24} />
 								<h2 className="text-xl font-semibold">
-									Chat with {ADMIN_NAME}
+									Chat with {ADMIN_ID ? ADMIN_NAME : "ADMIN"}{" "}
+									{ADMIN_ID && ( // Only show status if an admin is found
+										<span
+											className={`inline-block w-3 h-3 rounded-full ml-2 ${
+												ADMIN_STATUS === "active"
+													? "bg-green-500"
+													: "bg-red-500"
+											}`}
+											title={
+												ADMIN_STATUS === "active"
+													? "Admin is Online"
+													: "Admin is Offline"
+											}
+										></span>
+									)}
 								</h2>
 							</div>
 							<Motion.button
